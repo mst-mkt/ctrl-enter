@@ -8,7 +8,7 @@
     "notios": "notios dev",
     "dev": "run-p dev:*",
     "dev:plasmo": "plasmo dev",
-    "dev:hcm": "hcm './**/*.module.css' -w --ignore-path .gitignore",
+    "dev:hcm": "hcm '**/*.module.css' -w --ignore-path .gitignore",
     "build": "plasmo build",
     "lint": "pnpm run lint:js && pnpm run lint:prettier && pnpm run lint:style",
     "lint:js": "eslint --ext .ts,.tsx,.js --ignore-path .gitignore .",
@@ -16,7 +16,7 @@
     "lint:style": "stylelint \"**/*.css\" --ignore-path .gitignore",
     "lint:fix": "pnpm lint:js --fix && prettier --write \"./**/*.{ts,tsx,js}\" --ignore-path .gitignore && pnpm lint:style -- --fix",
     "test": "plasmo test",
-    "hcm": "hcm './**/*.module.css",
+    "hcm": "hcm '**/*.module.css'",
     "typecheck": "pnpm hcm && tsc --noEmit"
   },
   "dependencies": {
