@@ -8,18 +8,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 8.6.3
       - name: setup Node.js
         uses: actions/setup-node@v3
         with:
+          node-version-file: '.node-version'
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
           node-version: 18
-      - uses: actions/cache@v3
-        id: npm-cache
-        with:
-          path: 'node_modules'
-          key: npm-${{ hashFiles('package-lock.json') }}
-      - run: npm install
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-      - run: npm run lint
-      - run: npm run typecheck
+      - run: pnpm i --frozen-lockfile
+      - run: pnpm run lint
+      - run: pnpm run typecheck
       - name: plasmo Test
-        run: npm run test
+        run: pnpm run test
