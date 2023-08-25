@@ -1,3 +1,33 @@
+# ctrl-enter (仮名称)
+
+ウェブサービス間で統一されていない送信キー(Enter, ctrl+Enter, alt+Enter)を統一するブラウザ拡張機能
+
+ブラウザ拡張機能用Reactフレームワーク[Plasmo](https://www.plasmo.com/)を用いて開発
+
+## 開発手順
+
+### リポジトリのクローンとライブラリのインストール
+
+```sh
+pnpm i --frozen-lockfile
+```
+
+Plasmo推奨のpnpmを使用している
+
+### 開発
+
+```sh
+pnpm notios
+```
+
+### 拡張機能のインストール
+
+各ブラウザの拡張機能のインストール方法に従ってインストールする
+
+以下はPlasmoのREADME.md
+
+---
+
 This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
 
 ## Getting Started
