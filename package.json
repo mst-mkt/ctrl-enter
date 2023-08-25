@@ -20,6 +20,7 @@
     "typecheck": "pnpm hcm && tsc --noEmit"
   },
   "dependencies": {
+    "@plasmohq/storage": "^1.7.2",
     "plasmo": "0.82.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
