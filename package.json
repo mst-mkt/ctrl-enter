@@ -30,6 +30,7 @@
     "@types/react-dom": "18.2.7",
     "eslint": "^8.47.0",
     "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-react": "^7.33.2",
     "happy-css-modules": "^2.1.2",
     "prettier": "3.0.2",
     "stylelint": "^15.10.3",
