@@ -1,4 +1,5 @@
 import type { PlasmoCSConfig } from 'plasmo'
+import IndexPopup from 'src/popup'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://chat.openai.com/*']
