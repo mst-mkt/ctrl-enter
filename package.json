@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@plasmohq/storage": "^1.7.2",
+    "@tabler/icons-react": "^2.32.0",
     "plasmo": "0.82.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
