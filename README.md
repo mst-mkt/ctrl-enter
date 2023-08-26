@@ -1,6 +1,6 @@
 # ctrl-enter (仮名称)
 
-ウェブサービス間で統一されていない送信キー(Enter, ctrl+Enter, alt+Enter)を統一するブラウザ拡張機能
+ウェブサービス間で統一されていない改行と送信キー(Enter, ctrl+Enter, shift+Enter, alt+Enter)を統一するブラウザ拡張機能
 
 ブラウザ拡張機能用Reactフレームワーク[Plasmo](https://www.plasmo.com/)を用いて開発
 
