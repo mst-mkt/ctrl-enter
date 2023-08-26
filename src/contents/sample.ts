@@ -1,6 +1,8 @@
 import type { PlasmoCSConfig } from 'plasmo'
 
-export const config: PlasmoCSConfig = {}
+export const config: PlasmoCSConfig = {
+  matches: ['https://chat.openai.com/*']
+}
 
 const isTextArea = (e: KeyboardEvent) => {
   return (

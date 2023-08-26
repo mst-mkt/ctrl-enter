@@ -2,8 +2,12 @@ import { useState } from 'react'
 
 import styles from './index.module.css'
 
-function IndexPopup() {
-  const [data, setData] = useState('')
+const IndexPopup = () => {
+  const [data, setData] = useState<string>()
+
+  const addData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setData([...data, e.target.value])
+  }
 
   return (
     <div
@@ -13,12 +17,11 @@ function IndexPopup() {
         padding: 16
       }}
       className={styles.container}>
-      <h2>
-        Welcome to your
-        <a href="https://www.plasmo.com"> Plasmo</a> Extension!
-      </h2>
+      <h2>設定を反映しないサイト登録</h2>
       <input onChange={(e) => setData(e.target.value)} value={data} />
-      <a href="https://docs.plasmo.com">View Docs</a>
+      <p>
+        詳細設定は<a href="https://docs.plasmo.com">こちら</a>から
+      </p>
     </div>
   )
 }
