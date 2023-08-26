@@ -28,7 +28,7 @@ pnpm notios
 
 ### 拡張機能のインストール
 
-各ブラウザの拡張機能のインストール方法に従ってインストールする
+[Plasmo公式の導入方法](https://docs.plasmo.com/framework#loading-the-extension-in-chrome)に従ってインストールする
 
 Plasmoはホットリロードがあるため、notiosを動かしていれば拡張機能の再インストールは不要。wslからでもホットリロードは機能する。
 
