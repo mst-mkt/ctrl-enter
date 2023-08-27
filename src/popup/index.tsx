@@ -62,12 +62,15 @@ export const IndexPopup = () => {
         </div>
       </header>
       <main>
-        <div>
-          <label htmlFor="checkbox">現在のurl({url})を除外</label>
+        <div className={styles.check}>
+          <label htmlFor="checkbox" className={styles.checkLabel}>
+            現在のurl(<span className={styles.url}>{url}</span>)を除外
+          </label>
           <input
             type="checkbox"
             id="checkbox"
             checked={isChecked}
+            className={styles.checkInput}
             onChange={(e) => check(e)}
           />
         </div>
