@@ -11,6 +11,9 @@ dependencies:
   '@tabler/icons-react':
     specifier: ^2.32.0
     version: 2.32.0(react@18.2.0)
+  hook:
+    specifier: link:@plasmohq/storage/hook
+    version: link:@plasmohq/storage/hook
   plasmo:
     specifier: 0.82.1
     version: 0.82.1(postcss@8.4.28)(react-dom@18.2.0)(react@18.2.0)
