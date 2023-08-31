@@ -1,29 +1,20 @@
 import { IconSettings } from '@tabler/icons-react'
 import { useEffect, useState, type ChangeEvent } from 'react'
-
-import { useStorage } from '@plasmohq/storage/hook'
+import { addExcludes, getExcludes, removeExcludes } from 'src/utils/excludes'
 
 import styles from './index.module.css'
 
 export const IndexPopup = () => {
   const [url, setUrl] = useState<string | null>(null)
-  const [excludedUrls, setExcludedUrls] = useStorage<string[]>(
-    'excludedUrls',
-    []
-  )
   const [isChecked, setIsChecked] = useState<boolean>()
 
-  const check = (e: ChangeEvent<HTMLInputElement>) => {
+  const check = async (e: ChangeEvent<HTMLInputElement>) => {
     if (url === null) {
       return
     }
-    setIsChecked((e.target as HTMLInputElement).checked)
-    setExcludedUrls((prev) => {
-      if (isChecked ?? false) {
-        return prev?.filter((u) => u !== url) ?? []
-      }
-      return [...(prev ?? []), url]
-    })
+    const isChecked = (e.target as HTMLInputElement).checked
+    setIsChecked(isChecked)
+    isChecked ? await addExcludes(url) : await removeExcludes(url)
   }
 
   const openSettings = () => {
@@ -35,8 +26,15 @@ export const IndexPopup = () => {
       setIsChecked(false)
       return
     }
-    setIsChecked(excludedUrls.includes(url))
-  }, [url, excludedUrls])
+
+    const updateExcludes = async () => {
+      const excludes = await getExcludes()
+      const isChecked = excludes.includes(url)
+      setIsChecked(isChecked)
+    }
+
+    updateExcludes()
+  }, [url])
 
   useEffect(() => {
     const getUrl = () => {
@@ -64,12 +62,15 @@ export const IndexPopup = () => {
         </div>
       </header>
       <main>
-        <div>
-          <label htmlFor="checkbox">現在のurl({url})を除外</label>
+        <div className={styles.check}>
+          <label htmlFor="checkbox" className={styles.checkLabel}>
+            現在のurl(<span className={styles.url}>{url}</span>)を除外
+          </label>
           <input
             type="checkbox"
             id="checkbox"
             checked={isChecked}
+            className={styles.checkInput}
             onChange={(e) => check(e)}
           />
         </div>
