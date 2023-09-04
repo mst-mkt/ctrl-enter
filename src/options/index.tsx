@@ -1,3 +1,11 @@
+import {
+  IconBrandBing,
+  IconBrandDiscord,
+  IconBrandInstagram,
+  IconBrandOpenai,
+  IconBrandTwitter,
+  IconMessage
+} from '@tabler/icons-react'
 import { useEffect, useState, type ChangeEvent } from 'react'
 import { getConfig, saveConfig } from 'src/utils/config'
 
@@ -35,6 +43,15 @@ const OptionsIndex = () => {
     return <div>loading...</div>
   }
 
+  const icons = {
+    discord: <IconBrandDiscord />,
+    instagram: <IconBrandInstagram />,
+    twitter: <IconBrandTwitter />,
+    chatgpt: <IconBrandOpenai />,
+    bing: <IconBrandBing />,
+    bard: <IconMessage />
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.inner}>
@@ -44,6 +61,7 @@ const OptionsIndex = () => {
           <div>
             {Object.entries(config).map(([key, value]) => (
               <div key={key} className={styles.input}>
+                {icons[key as keyof typeof icons]}
                 <label htmlFor={key}>{key}</label>
                 <input
                   name={key}

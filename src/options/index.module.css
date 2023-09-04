@@ -103,3 +103,10 @@ body:has(.container) {
 .input > input:checked:is(:hover, :focus)::before {
   box-shadow: 0 0 0 0.4svmin #42428122;
 }
+
+.input > svg {
+  width: 2svmin;
+  height: 2svmin;
+  margin-right: 1svmin;
+  color: #669;
+}
