@@ -7,7 +7,11 @@ import styles from './index.module.css'
 export const IndexPopup = () => {
   const [url, setUrl] = useState<string | null>(null)
   const [isChecked, setIsChecked] = useState<boolean>()
-  const defaultAdaptedPages = ['https://www.threads.net/'] //ここにデフォルトで対応しているサイトのURLを配列にしていく
+  const defaultAdaptedPages = [
+    'https://www.threads.net/',
+    'https://mail.google.com/'
+  ] //ここにデフォルトで対応しているサイトのURLを配列にしていく
+  // けいとのPRが通り次第utils/config.tsに移動
   const check = async (e: ChangeEvent<HTMLInputElement>) => {
     if (url === null) {
       return
@@ -74,9 +78,9 @@ export const IndexPopup = () => {
             onChange={(e) => check(e)}
           />
         </div>
-        {defaultAdaptedPages.some((item) => item === url) ? (
+        {defaultAdaptedPages.some((item) => url.startsWith(item)) ? (
           <div>
-            <p>このサイトはctrl+enterに対応済みです</p>
+            <p>※このサイトはctrl+enterに対応済みです</p>
           </div>
         ) : null}
       </main>
