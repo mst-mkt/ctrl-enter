@@ -1,6 +1,6 @@
 # ctrl-enter (仮名称)
 
-ウェブサービス間で統一されていない送信キー(Enter, ctrl+Enter, alt+Enter)を統一するブラウザ拡張機能
+ウェブサービス間で統一されていない改行と送信キー(Enter, ctrl+Enter, shift+Enter, alt+Enter)を統一するブラウザ拡張機能
 
 ブラウザ拡張機能用Reactフレームワーク[Plasmo](https://www.plasmo.com/)を用いて開発
 
@@ -28,7 +28,11 @@ pnpm notios
 
 ### 拡張機能のインストール
 
-各ブラウザの拡張機能のインストール方法に従ってインストールする
+[Plasmo公式の導入方法](https://docs.plasmo.com/framework#loading-the-extension-in-chrome)に従ってインストールする
+
+Plasmoはホットリロードがあるため、notiosを動かしていれば拡張機能の再インストールは不要。wslからでもホットリロードは機能する。
+
+
 
 以下はPlasmoのREADME.md
 
