@@ -9,7 +9,9 @@ export const IndexPopup = () => {
   const [isChecked, setIsChecked] = useState<boolean>()
   const defaultAdaptedPages = [
     'https://www.threads.net/',
-    'https://mail.google.com/'
+    'https://mail.google.com/',
+    'https://www.youtube.com/',
+    'https://github.com/'
   ] //ここにデフォルトで対応しているサイトのURLを配列にしていく
   // けいとのPRが通り次第utils/config.tsに移動
   const check = async (e: ChangeEvent<HTMLInputElement>) => {
