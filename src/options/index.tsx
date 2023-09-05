@@ -1,37 +1,79 @@
-import { useEffect, useState } from 'react'
-import { getExcludes } from 'src/utils/excludes'
+import {
+  IconBrandBing,
+  IconBrandDiscord,
+  IconBrandInstagram,
+  IconBrandOpenai,
+  IconBrandTwitter,
+  IconMessage
+} from '@tabler/icons-react'
+import { useEffect, useState, type ChangeEvent } from 'react'
+import { getConfig, saveConfig } from 'src/utils/config'
+
+import styles from './index.module.css'
 
 const OptionsIndex = () => {
-  const [excludes, setExcludes] = useState<string[]>([])
-  const [data, setData] = useState<string[]>([])
-
-  const addData = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setData([...data, e.target.value])
-  }
+  const [config, setConfig] = useState<Record<string, boolean>>()
 
   useEffect(() => {
-    const fetchExcludes = async () => {
-      const excludes = await getExcludes()
-      setExcludes(excludes)
-      console.log(excludes)
+    const fetchConfig = async () => {
+      const config = await getConfig()
+      setConfig(config)
     }
+    fetchConfig()
 
-    fetchExcludes()
-
-    const fetchExcludesInterval = setInterval(fetchExcludes, 1000)
+    const fetchIntervalId = setInterval(fetchConfig, 1000)
 
     return () => {
-      clearInterval(fetchExcludesInterval)
+      clearInterval(fetchIntervalId)
     }
   }, [])
 
+  const changeConfig = async (
+    key: string,
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    if (config === undefined) return
+    const newConfig = { ...config, [key]: e.target.checked }
+    setConfig(newConfig)
+    await saveConfig(newConfig)
+  }
+
+  if (config === undefined) {
+    return <div>loading...</div>
+  }
+
+  const icons = {
+    discord: <IconBrandDiscord />,
+    instagram: <IconBrandInstagram />,
+    twitter: <IconBrandTwitter />,
+    chatgpt: <IconBrandOpenai />,
+    bing: <IconBrandBing />,
+    bard: <IconMessage />
+  }
+
   return (
-    <div>
-      <h1>除外サイト登録</h1>
-      <input onChange={(e) => addData(e)} value={data} />
-      {excludes.map((exclude, i) => (
-        <div key={i}>{exclude}</div>
-      ))}
+    <div className={styles.container}>
+      <div className={styles.inner}>
+        <h1 className={styles.title}>Ctrl-Enter</h1>
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>適応サイト</h2>
+          <div>
+            {Object.entries(config).map(([key, value]) => (
+              <div key={key} className={styles.input}>
+                {icons[key as keyof typeof icons]}
+                <label htmlFor={key}>{key}</label>
+                <input
+                  name={key}
+                  id={key}
+                  type="checkbox"
+                  checked={value}
+                  onChange={(e) => changeConfig(key, e)}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
