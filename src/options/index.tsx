@@ -33,7 +33,6 @@ const OptionsIndex = () => {
     e: ChangeEvent<HTMLInputElement>
   ) => {
     if (config === undefined) return
-    console.log(key, config[key])
     const newConfig = { ...config, [key]: e.target.checked }
     setConfig(newConfig)
     await saveConfig(newConfig)

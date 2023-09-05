@@ -16,30 +16,18 @@ import {
   type MouseEvent
 } from 'react'
 import type { supportSitesList } from 'src/types/type'
-import { supportSites } from 'src/utils/config'
+import { getConfig, saveConfig, supportSites } from 'src/utils/config'
 
 import styles from './index.module.css'
 
 export const IndexPopup = () => {
   const [url, setUrl] = useState<string | null>(null)
+  const [isChecked, setIsChecked] = useState<boolean>(false)
   const defaultAdaptedPages = ['https://www.threads.net/']
 
   const openSettings = () => {
     chrome.runtime.openOptionsPage()
   }
-
-  useEffect(() => {
-    const getUrl = () => {
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        setUrl(tabs[0].url ?? null)
-      })
-    }
-
-    getUrl()
-    chrome.tabs.onActivated.addListener((activeInfo) => {
-      getUrl()
-    })
-  }, [])
 
   const siteName = useMemo<supportSitesList | 'unknown'>(() => {
     const siteName = Object.keys(supportSites).find((key) => {
@@ -63,12 +51,15 @@ export const IndexPopup = () => {
     return 'notSupported'
   }, [url])
 
-  if (url === null) {
-    return <div className={styles.container}>loading...</div>
-  }
+  const check = async (e: ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked)
+    const nowConfig = await getConfig()
+    const newConfig = {
+      ...nowConfig,
+      [siteName]: e.target.checked
+    }
 
-  const check = (e: ChangeEvent<HTMLInputElement>) => {
-    alert(e.target.checked)
+    await saveConfig(newConfig)
   }
 
   const openLink = (e: MouseEvent<HTMLAnchorElement>) => {
@@ -76,6 +67,27 @@ export const IndexPopup = () => {
     const url = e.currentTarget.href
     chrome.tabs.create({ url })
   }
+
+  useEffect(() => {
+    const getUrl = () => {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        setUrl(tabs[0].url ?? null)
+      })
+    }
+    getUrl()
+
+    chrome.tabs.onActivated.addListener(() => {
+      getUrl()
+    })
+  }, [])
+
+  useEffect(() => {
+    const fetchConfig = async () => {
+      const config = await getConfig()
+      setIsChecked(config[siteName])
+    }
+    fetchConfig()
+  }, [siteName])
 
   const icons = {
     discord: <IconBrandDiscord />,
@@ -86,6 +98,10 @@ export const IndexPopup = () => {
     bard: <IconMessage />,
 
     unknown: <IconBan />
+  }
+
+  if (url === null) {
+    return <div className={styles.container}>loading...</div>
   }
 
   return (
@@ -101,7 +117,13 @@ export const IndexPopup = () => {
           <div className={styles.input}>
             <span>{icons[siteName]}</span>
             <label htmlFor={siteName}>{siteName}</label>
-            <input type="checkbox" name={siteName} id={siteName} />
+            <input
+              type="checkbox"
+              name={siteName}
+              id={siteName}
+              checked={isChecked}
+              onChange={check}
+            />
           </div>
         )}
         {status === 'adapted' && (
