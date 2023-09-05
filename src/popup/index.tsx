@@ -1,40 +1,32 @@
-import { IconSettings } from '@tabler/icons-react'
-import { useEffect, useState, type ChangeEvent } from 'react'
-import { addExcludes, getExcludes, removeExcludes } from 'src/utils/excludes'
+import {
+  IconBan,
+  IconBrandBing,
+  IconBrandDiscord,
+  IconBrandInstagram,
+  IconBrandOpenai,
+  IconBrandTwitter,
+  IconMessage,
+  IconSettings
+} from '@tabler/icons-react'
+import {
+  useEffect,
+  useMemo,
+  useState,
+  type ChangeEvent,
+  type MouseEvent
+} from 'react'
+import type { supportSitesList } from 'src/types/type'
+import { supportSites } from 'src/utils/config'
 
 import styles from './index.module.css'
 
 export const IndexPopup = () => {
   const [url, setUrl] = useState<string | null>(null)
-  const [isChecked, setIsChecked] = useState<boolean>()
-  const defaultAdaptedPages = ['https://www.threads.net/'] //ここにデフォルトで対応しているサイトのURLを配列にしていく
-  const check = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (url === null) {
-      return
-    }
-    const isChecked = (e.target as HTMLInputElement).checked
-    setIsChecked(isChecked)
-    isChecked ? await addExcludes(url) : await removeExcludes(url)
-  }
+  const defaultAdaptedPages = ['https://www.threads.net/']
 
   const openSettings = () => {
     chrome.runtime.openOptionsPage()
   }
-
-  useEffect(() => {
-    if (url === null) {
-      setIsChecked(false)
-      return
-    }
-
-    const updateExcludes = async () => {
-      const excludes = await getExcludes()
-      const isChecked = excludes.includes(url)
-      setIsChecked(isChecked)
-    }
-
-    updateExcludes()
-  }, [url])
 
   useEffect(() => {
     const getUrl = () => {
@@ -49,8 +41,51 @@ export const IndexPopup = () => {
     })
   }, [])
 
+  const siteName = useMemo<supportSitesList | 'unknown'>(() => {
+    const siteName = Object.keys(supportSites).find((key) => {
+      return supportSites[key as supportSitesList].some(
+        (item) => url?.includes(item)
+      )
+    }) as supportSitesList | undefined
+
+    return siteName ?? 'unknown'
+  }, [url, supportSites])
+
+  const status = useMemo(() => {
+    const isSupported = Object.values(supportSites).some((value) => {
+      return value.some((item) => url?.includes(item))
+    })
+    if (isSupported) return 'supported'
+
+    const isAdapted = defaultAdaptedPages.some((item) => url?.includes(item))
+    if (isAdapted) return 'adapted'
+
+    return 'notSupported'
+  }, [url])
+
   if (url === null) {
     return <div className={styles.container}>loading...</div>
+  }
+
+  const check = (e: ChangeEvent<HTMLInputElement>) => {
+    alert(e.target.checked)
+  }
+
+  const openLink = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    const url = e.currentTarget.href
+    chrome.tabs.create({ url })
+  }
+
+  const icons = {
+    discord: <IconBrandDiscord />,
+    instagram: <IconBrandInstagram />,
+    twitter: <IconBrandTwitter />,
+    chatgpt: <IconBrandOpenai />,
+    bing: <IconBrandBing />,
+    bard: <IconMessage />,
+
+    unknown: <IconBan />
   }
 
   return (
@@ -62,24 +97,35 @@ export const IndexPopup = () => {
         </div>
       </header>
       <main>
-        <div className={styles.check}>
-          <label htmlFor="checkbox" className={styles.checkLabel}>
-            現在のurl(<span className={styles.url}>{url}</span>)を除外
-          </label>
-          <input
-            type="checkbox"
-            id="checkbox"
-            checked={isChecked}
-            className={styles.checkInput}
-            onChange={(e) => check(e)}
-          />
-        </div>
-        {defaultAdaptedPages.some((item) => item === url) ? (
-          <div>
-            <p>このサイトはctrl+enterに対応済みです</p>
+        {status === 'supported' && (
+          <div className={styles.input}>
+            <span>{icons[siteName]}</span>
+            <label htmlFor={siteName}>{siteName}</label>
+            <input type="checkbox" name={siteName} id={siteName} />
           </div>
-        ) : null}
+        )}
+        {status === 'adapted' && (
+          <div>
+            <p>このサイトはデフォルトでctrl+Enterが送信です</p>
+          </div>
+        )}
+        {status === 'notSupported' && (
+          <div>
+            <p>このサイトはctrl+Enterに対応していません</p>
+          </div>
+        )}
       </main>
+      <footer>
+        <p>
+          問題を報告する{' '}
+          <a
+            href="https://github.com/INIAD-developers/ctrl-enter/issues"
+            className={styles.link}
+            onClick={openLink}>
+            GitHub
+          </a>
+        </p>
+      </footer>
     </div>
   )
 }

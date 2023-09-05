@@ -2,7 +2,20 @@ import { Storage } from '@plasmohq/storage'
 
 const storage: Storage = new Storage()
 
-const defaultConfig: Record<string, boolean> = {
+export const supportSites = {
+  discord: ['https://discord.com'],
+  twitter: [
+    'https://twitter.com',
+    'https://mobile.twitter.com',
+    'https://x.com'
+  ],
+  instagram: ['https://www.instagram.com', 'https://instagram.com'],
+  chatgpt: ['https://chat.openai.com'],
+  bing: ['https://www.bing.com'],
+  bard: ['https://bard.google.com']
+} as const
+
+const defaultConfig: Record<keyof typeof supportSites, boolean> = {
   discord: true,
   twitter: true,
   instagram: true,
@@ -10,9 +23,6 @@ const defaultConfig: Record<string, boolean> = {
   bing: true,
   bard: true
 } as const
-
-export const supportSites: Array<keyof typeof defaultConfig> =
-  Object.keys(defaultConfig)
 
 export const getConfig = async (): Promise<Record<string, boolean>> => {
   const configString = await storage.get('config')
