@@ -5,6 +5,7 @@ import {
   IconBrandInstagram,
   IconBrandOpenai,
   IconBrandTwitter,
+  IconCamera,
   IconMessage,
   IconSettings
 } from '@tabler/icons-react'
@@ -96,6 +97,7 @@ export const IndexPopup = () => {
     chatgpt: <IconBrandOpenai />,
     bing: <IconBrandBing />,
     bard: <IconMessage />,
+    meet: <IconCamera />,
 
     unknown: <IconBan />
   }
