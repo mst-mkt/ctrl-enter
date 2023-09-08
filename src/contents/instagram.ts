@@ -19,13 +19,10 @@ const sendButton = {
       | undefined
 }
 
-document.addEventListener(
-  'keydown',
-  async (e) => {
-    const config = await getConfig()
-    const instagramConfig = config.instagram
-
-    if (instagramConfig) {
+const addEvent = () => {
+  document.addEventListener(
+    'keydown',
+    (e) => {
       if (isTextArea(e)) {
         if (key(e) === 'enter') {
           e.stopPropagation()
@@ -34,7 +31,31 @@ document.addEventListener(
           sendButton.message(target)?.click()
         }
       }
-    }
-  },
-  { capture: true }
-)
+    },
+    { capture: true }
+  )
+}
+
+chrome.storage.onChanged.addListener(async () => {
+  const config = await getConfig()
+  const instagramConfig = config.instagram
+
+  if (instagramConfig) {
+    addEvent()
+  } else {
+    document.removeEventListener(
+      'keydown',
+      (e) => {
+        if (isTextArea(e)) {
+          if (key(e) === 'enter') {
+            e.stopPropagation()
+          } else if (key(e) === 'ctrlEnter') {
+            const target = e.target as HTMLElement
+            sendButton.message(target)?.click()
+          }
+        }
+      },
+      { capture: true }
+    )
+  }
+})

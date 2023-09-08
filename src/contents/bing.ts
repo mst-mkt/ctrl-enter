@@ -16,13 +16,10 @@ const isTextArea = (e: KeyboardEvent) => {
   return isChatTextbox
 }
 
-document.addEventListener(
-  'keydown',
-  async (e) => {
-    const config = await getConfig()
-    const bingConfig = config.bing
-
-    if (bingConfig) {
+const addEvent = () => {
+  document.addEventListener(
+    'keydown',
+    (e) => {
       if (isTextArea(e)) {
         console.log('nya')
         if (key(e) === 'enter') {
@@ -30,7 +27,30 @@ document.addEventListener(
           e.stopPropagation()
         }
       }
-    }
-  },
-  { capture: true }
-)
+    },
+    { capture: true }
+  )
+}
+
+chrome.storage.onChanged.addListener(async () => {
+  const config = await getConfig()
+  const bingConfig = config.bing
+
+  if (bingConfig) {
+    addEvent()
+  } else {
+    document.removeEventListener(
+      'keydown',
+      (e) => {
+        if (isTextArea(e)) {
+          console.log('nya')
+          if (key(e) === 'enter') {
+            console.log('nya1')
+            e.stopPropagation()
+          }
+        }
+      },
+      { capture: true }
+    )
+  }
+})

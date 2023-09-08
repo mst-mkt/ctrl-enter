@@ -12,7 +12,8 @@ export const supportSites = {
   instagram: ['https://www.instagram.com', 'https://instagram.com'],
   chatgpt: ['https://chat.openai.com'],
   bing: ['https://www.bing.com'],
-  bard: ['https://bard.google.com']
+  bard: ['https://bard.google.com'],
+  zoom: ['https://zoom.us/wc', 'https://pwa.zoom.us/wc']
 } as const
 
 const defaultConfig: Record<keyof typeof supportSites, boolean> = {
@@ -21,7 +22,8 @@ const defaultConfig: Record<keyof typeof supportSites, boolean> = {
   instagram: true,
   chatgpt: true,
   bing: true,
-  bard: true
+  bard: true,
+  zoom: true
 } as const
 
 export const getConfig = async (): Promise<Record<string, boolean>> => {

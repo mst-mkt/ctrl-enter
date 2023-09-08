@@ -12,19 +12,39 @@ const isTextArea = (e: KeyboardEvent) => {
   return target.role === 'textbox'
 }
 
-document.addEventListener(
-  'keydown',
-  async (e) => {
-    const config = await getConfig()
-    const discordConfig = config.discord
-
-    if (discordConfig) {
+const addEvent = () => {
+  document.addEventListener(
+    'keydown',
+    (e) => {
       if (isTextArea(e)) {
         if (key(e) === 'enter') {
           e.stopPropagation()
         }
       }
-    }
-  },
-  { capture: true }
-)
+    },
+    { capture: true }
+  )
+}
+
+chrome.storage.onChanged.addListener(async () => {
+  const config = await getConfig()
+  const discordConfig = config.discord
+
+  if (discordConfig) {
+    addEvent()
+  } else {
+    document.removeEventListener(
+      'keydown',
+      (e) => {
+        if (isTextArea(e)) {
+          if (key(e) === 'enter') {
+            e.stopPropagation()
+          }
+        }
+      },
+      { capture: true }
+    )
+  }
+})
+
+addEvent()

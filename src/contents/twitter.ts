@@ -32,13 +32,10 @@ const sendButton = {
   }
 }
 
-document.addEventListener(
-  'keydown',
-  async (e) => {
-    const config = await getConfig()
-    const twitterConfig = config.twitter
-
-    if (twitterConfig) {
+const addEvent = () => {
+  document.addEventListener(
+    'keydown',
+    (e) => {
       if (isTextArea(e)) {
         if (key(e) === 'ctrlEnter') {
           const target = e.target as HTMLElement
@@ -47,7 +44,34 @@ document.addEventListener(
           e.stopPropagation()
         }
       }
-    }
-  },
-  { capture: true }
-)
+    },
+    { capture: true }
+  )
+}
+
+chrome.storage.onChanged.addListener(async () => {
+  alert('changed')
+  const config = await getConfig()
+  const twitterConfig = config.twitter
+
+  if (twitterConfig) {
+    addEvent()
+  } else {
+    document.removeEventListener(
+      'keydown',
+      (e) => {
+        if (isTextArea(e)) {
+          if (key(e) === 'ctrlEnter') {
+            const target = e.target as HTMLElement
+            sendButton.message(target)?.click()
+          } else if (key(e) === 'enter') {
+            e.stopPropagation()
+          }
+        }
+      },
+      { capture: true }
+    )
+  }
+})
+
+addEvent()
