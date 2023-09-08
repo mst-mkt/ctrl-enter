@@ -26,10 +26,7 @@ document.addEventListener(
         e.stopPropagation()
       } else if (key(e) === 'ctrlEnter') {
         const target = e.target as HTMLElement
-        const isMessage = target.getAttribute('aria-label') === 'メッセージ'
-        if (isMessage) {
-          sendButton.message(target)?.click()
-        }
+        sendButton.message(target)?.click()
       }
     }
   },
