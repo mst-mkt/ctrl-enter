@@ -1,4 +1,5 @@
 import type { PlasmoCSConfig } from 'plasmo'
+import { getConfig } from 'src/utils/config'
 import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
@@ -18,13 +19,17 @@ const sendButton = (elm: HTMLElement) =>
 
 document.addEventListener(
   'keydown',
-  (e) => {
-    console.log(sendButton(e.target as HTMLElement))
-    if (isTextArea(e)) {
-      if (key(e) === 'enter') {
-        e.stopPropagation()
-      } else if (key(e) === 'ctrlEnter') {
-        sendButton(e.target as HTMLElement)?.click()
+  async (e) => {
+    const config = await getConfig()
+    const bardConfig = config.bard
+
+    if (bardConfig) {
+      if (isTextArea(e)) {
+        if (key(e) === 'enter') {
+          e.stopPropagation()
+        } else if (key(e) === 'ctrlEnter') {
+          sendButton(e.target as HTMLElement)?.click()
+        }
       }
     }
   },

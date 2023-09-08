@@ -1,4 +1,5 @@
 import type { PlasmoCSConfig } from 'plasmo'
+import { getConfig } from 'src/utils/config'
 import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
@@ -11,15 +12,17 @@ const isTextArea = (e: KeyboardEvent) => {
   return target.role === 'textbox'
 }
 
-console.log('nya')
-
 document.addEventListener(
   'keydown',
-  (e) => {
-    console.log('nya')
-    if (isTextArea(e)) {
-      if (key(e) === 'enter') {
-        e.stopPropagation()
+  async (e) => {
+    const config = await getConfig()
+    const discordConfig = config.discord
+
+    if (discordConfig) {
+      if (isTextArea(e)) {
+        if (key(e) === 'enter') {
+          e.stopPropagation()
+        }
       }
     }
   },
