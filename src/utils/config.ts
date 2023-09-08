@@ -13,7 +13,8 @@ export const supportSites = {
   chatgpt: ['https://chat.openai.com'],
   bing: ['https://www.bing.com'],
   bard: ['https://bard.google.com'],
-  meet: ['https://meet.google.com/*']
+  meet: ['https://meet.google.com/*'],
+  zoom: ['https://zoom.us/wc', 'https://pwa.zoom.us/wc']
 } as const
 
 const defaultConfig: Record<keyof typeof supportSites, boolean> = {
@@ -23,7 +24,8 @@ const defaultConfig: Record<keyof typeof supportSites, boolean> = {
   chatgpt: true,
   bing: true,
   bard: true,
-  meet: true
+  meet: true,
+  zoom: true
 } as const
 
 export const getConfig = async (): Promise<Record<string, boolean>> => {

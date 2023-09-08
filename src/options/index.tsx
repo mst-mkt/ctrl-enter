@@ -4,6 +4,7 @@ import {
   IconBrandInstagram,
   IconBrandOpenai,
   IconBrandTwitter,
+  IconBrandZoom,
   IconCamera,
   IconMessage
 } from '@tabler/icons-react'
@@ -50,7 +51,8 @@ const OptionsIndex = () => {
     chatgpt: <IconBrandOpenai />,
     bing: <IconBrandBing />,
     bard: <IconMessage />,
-    meet: <IconCamera />
+    meet: <IconCamera />,
+    zoom: <IconBrandZoom />
   }
 
   return (
