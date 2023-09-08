@@ -1,4 +1,5 @@
 import type { PlasmoCSConfig } from 'plasmo'
+import { getConfig } from 'src/utils/config'
 import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
@@ -20,14 +21,16 @@ const sendButton = {
 
 document.addEventListener(
   'keydown',
-  (e) => {
-    if (isTextArea(e)) {
-      if (key(e) === 'enter') {
-        e.stopPropagation()
-      } else if (key(e) === 'ctrlEnter') {
-        const target = e.target as HTMLElement
-        const isMessage = target.getAttribute('aria-label') === 'メッセージ'
-        if (isMessage) {
+  async (e) => {
+    const config = await getConfig()
+    const instagramConfig = config.instagram
+
+    if (instagramConfig) {
+      if (isTextArea(e)) {
+        if (key(e) === 'enter') {
+          e.stopPropagation()
+        } else if (key(e) === 'ctrlEnter') {
+          const target = e.target as HTMLElement
           sendButton.message(target)?.click()
         }
       }

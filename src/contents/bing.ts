@@ -1,4 +1,5 @@
 import type { PlasmoCSConfig } from 'plasmo'
+import { getConfig } from 'src/utils/config'
 import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
@@ -17,12 +18,17 @@ const isTextArea = (e: KeyboardEvent) => {
 
 document.addEventListener(
   'keydown',
-  (e) => {
-    if (isTextArea(e)) {
-      console.log('nya')
-      if (key(e) === 'enter') {
-        console.log('nya1')
-        e.stopPropagation()
+  async (e) => {
+    const config = await getConfig()
+    const bingConfig = config.bing
+
+    if (bingConfig) {
+      if (isTextArea(e)) {
+        console.log('nya')
+        if (key(e) === 'enter') {
+          console.log('nya1')
+          e.stopPropagation()
+        }
       }
     }
   },
