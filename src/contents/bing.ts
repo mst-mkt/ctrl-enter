@@ -20,18 +20,18 @@ const isTextArea = (e: KeyboardEvent) => {
   return target.tagName === 'CIB-SERP'
 }
 
-const addEvent = () => {
-  document.addEventListener('keydown', handleKeyEvent, { capture: true })
-}
-
-chrome.storage.onChanged.addListener(async () => {
+const handleEvent = async () => {
   const config = await getConfig()
   const bingConfig = config.bing
   if (bingConfig) {
-    addEvent()
+    document.addEventListener('keydown', handleKeyEvent, { capture: true })
   } else {
     document.removeEventListener('keydown', handleKeyEvent, { capture: true })
   }
+}
+
+chrome.storage.onChanged.addListener(() => {
+  handleEvent()
 })
 
-addEvent()
+handleEvent()

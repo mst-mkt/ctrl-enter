@@ -36,19 +36,19 @@ const handleKeyEvent = (e: KeyboardEvent) => {
   }
 }
 
-const addEvent = () => {
-  document.addEventListener('keydown', handleKeyEvent, { capture: true })
-}
-
-chrome.storage.onChanged.addListener(async () => {
+const handleEvent = async () => {
   const config = await getConfig()
   const instagramConfig = config.zoom
 
   if (instagramConfig) {
-    addEvent()
+    document.addEventListener('keydown', handleKeyEvent, { capture: true })
   } else {
     document.removeEventListener('keydown', handleKeyEvent, { capture: true })
   }
+}
+
+chrome.storage.onChanged.addListener(() => {
+  handleEvent()
 })
 
-addEvent()
+handleEvent()

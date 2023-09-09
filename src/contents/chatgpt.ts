@@ -31,19 +31,19 @@ const isTextArea = (e: KeyboardEvent) => {
   return target.tagName === 'TEXTAREA'
 }
 
-const addEvent = () => {
-  document.addEventListener('keydown', handleKeyEvent, { capture: true })
-}
-
-chrome.storage.onChanged.addListener(async (changes) => {
+const handleEvent = async () => {
   const config = await getConfig()
   const chatgptConfig = config.chatgpt
 
   if (chatgptConfig) {
-    addEvent()
+    document.addEventListener('keydown', handleKeyEvent, { capture: true })
   } else {
     document.removeEventListener('keydown', handleKeyEvent, { capture: true })
   }
+}
+
+chrome.storage.onChanged.addListener(() => {
+  handleEvent()
 })
 
-addEvent()
+handleEvent()
