@@ -34,6 +34,8 @@ chrome.storage.onChanged.addListener(async () => {
   }
 })
 
+addEvent()
+
 const ctrlEnter = (e: KeyboardEvent) => {
   if (isTextArea(e)) {
     if (key(e) === 'enter') {
