@@ -19,13 +19,10 @@ const sendButton = {
     elm.nextElementSibling?.getElementsByTagName('button')[0]
 }
 
-document.addEventListener(
-  'keydown',
-  async (e) => {
-    const config = await getConfig()
-    const chatgptConfig = config.chatgpt
-
-    if (chatgptConfig) {
+const addEvent = () => {
+  document.addEventListener(
+    'keydown',
+    (e) => {
       if (isTextArea(e)) {
         e.stopPropagation()
         if (key(e) === 'ctrlEnter') {
@@ -35,7 +32,32 @@ document.addEventListener(
           button?.click()
         }
       }
-    }
-  },
-  { capture: true }
-)
+    },
+    { capture: true }
+  )
+}
+
+chrome.storage.onChanged.addListener(async (changes) => {
+  const config = await getConfig()
+  const chatgptConfig = config.chatgpt
+
+  if (chatgptConfig) {
+    addEvent()
+  } else {
+    document.removeEventListener(
+      'keydown',
+      (e) => {
+        if (isTextArea(e)) {
+          e.stopPropagation()
+          if (key(e) === 'ctrlEnter') {
+            const target = e.target as HTMLElement
+            const action = target.id === 'prompt-textarea' ? 'send' : 'edit'
+            const button = sendButton[action](e.target as HTMLElement)
+            button?.click()
+          }
+        }
+      },
+      { capture: true }
+    )
+  }
+})
