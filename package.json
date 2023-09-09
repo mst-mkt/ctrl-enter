@@ -1,9 +1,9 @@
 {
-  "name": "product-z",
-  "displayName": "Product z",
+  "name": "ctrl-enter",
+  "displayName": "ctrl-Enter",
   "version": "0.0.1",
-  "description": " ",
-  "author": "mst-mkt",
+  "description": "'Enter'で送信するWebサイトを'Ctrl + Enter'に矯正するブラウザ拡張機能",
+  "author": "INIAD.ts",
   "scripts": {
     "notios": "notios dev",
     "dev": "run-p dev:*",
