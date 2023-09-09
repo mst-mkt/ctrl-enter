@@ -58,7 +58,6 @@ const handleRemoveDMEvent = () => {
 }
 
 window.addEventListener('keydown', async () => {
-  console.log('click')
   handleRemoveDMEvent()
   const config = await getConfig()
   const twitterConfig = config.twitter
