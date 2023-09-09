@@ -2,6 +2,7 @@ import {
   IconBan,
   IconBrandBing,
   IconBrandDiscord,
+  IconBrandFacebook,
   IconBrandInstagram,
   IconBrandOpenai,
   IconBrandTwitter,
@@ -100,7 +101,7 @@ export const IndexPopup = () => {
     bard: <IconMessage />,
     meet: <IconCamera />,
     zoom: <IconBrandZoom />,
-
+    facebook: <IconBrandFacebook />,
     unknown: <IconBan />
   }
 
