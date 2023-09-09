@@ -5,6 +5,7 @@ import {
   IconBrandOpenai,
   IconBrandTwitter,
   IconBrandZoom,
+  IconCamera,
   IconMessage
 } from '@tabler/icons-react'
 import { useEffect, useState, type ChangeEvent } from 'react'
@@ -50,6 +51,7 @@ const OptionsIndex = () => {
     chatgpt: <IconBrandOpenai />,
     bing: <IconBrandBing />,
     bard: <IconMessage />,
+    meet: <IconCamera />,
     zoom: <IconBrandZoom />
   }
 
