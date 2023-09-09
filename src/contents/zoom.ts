@@ -23,7 +23,7 @@ const addEvent = () => {
 
 chrome.storage.onChanged.addListener(async () => {
   const config = await getConfig()
-  const instagramConfig = config.instagram
+  const instagramConfig = config.zoom
 
   if (instagramConfig) {
     addEvent()
