@@ -16,46 +16,85 @@ const isTextArea = (e: KeyboardEvent) => {
   return target.role === 'textbox'
 }
 
-const sendButton = {
-  message: (elm: HTMLElement) => {
-    const isMessage = elm.getAttribute('data-testid') === 'dmComposerTextInput'
+const isInDMpPage = () => {
+  const pageURL = location.href
+  return pageURL.includes('message')
+}
 
-    if (isMessage) {
-      const button = document.querySelector(
-        '[role="button"][data-testid="dmComposerSendButton"]'
-      ) as HTMLButtonElement | undefined
+const sendButton = (elm: HTMLElement) => {
+  const isMessage = elm.getAttribute('data-testid') === 'dmComposerTextInput'
 
-      return button
-    }
+  if (isMessage) {
+    const button = document.querySelector(
+      '[role="button"][data-testid="dmComposerSendButton"]'
+    ) as HTMLButtonElement | undefined
 
-    return undefined
+    return button
+  }
+
+  return undefined
+}
+
+const messageElem = (): HTMLElement | null => {
+  if (isInDMpPage()) {
+    return document.querySelector('main')
+  } else {
+    return document.querySelector('[data-testid~="DMDrawer"]')
   }
 }
 
-const addEvent = () => {
-  document.addEventListener('keydown', ctrlEnter, { capture: true })
+const handleAddDMEvent = () => {
+  const elem = messageElem()
+  if (elem !== null && elem.onkeydown === null) {
+    elem.onkeydown = ctrlEnterInDM
+  }
 }
+
+const handleRemoveDMEvent = () => {
+  const elem = messageElem()
+  if (elem !== null) {
+    elem.onkeydown = null
+  }
+}
+
+window.addEventListener('keydown', async () => {
+  handleRemoveDMEvent()
+  const config = await getConfig()
+  const twitterConfig = config.twitter
+  if (twitterConfig) {
+    handleAddDMEvent()
+  }
+})
 
 chrome.storage.onChanged.addListener(async () => {
   const config = await getConfig()
   const twitterConfig = config.twitter
-
   if (twitterConfig) {
-    addEvent()
+    handleAddDMEvent()
   } else {
-    document.removeEventListener('keydown', ctrlEnter, { capture: true })
+    handleRemoveDMEvent()
   }
 })
 
-const ctrlEnter = (e: KeyboardEvent) => {
-  if (isTextArea(e)) {
-    if (key(e) === 'ctrlEnter') {
-      const target = e.target as HTMLElement
-      sendButton.message(target)?.click()
-    } else if (key(e) === 'enter') {
-      e.stopPropagation()
-    }
+const ctrlEnterInDM = (e: KeyboardEvent) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.target?.dispatchEvent(
+      new KeyboardEvent('keydown', {
+        key: 'Enter',
+        code: 'Enter',
+        which: 13,
+        keyCode: 13,
+        bubbles: true,
+        shiftKey: true,
+        composed: true,
+        view: window
+      })
+    )
+    e.preventDefault()
+    e.stopPropagation()
+    e.stopImmediatePropagation()
+  } else if (key(e) === 'ctrlEnter') {
+    const target = e.target as HTMLElement
+    sendButton(target)?.click()
   }
 }
-
-addEvent()

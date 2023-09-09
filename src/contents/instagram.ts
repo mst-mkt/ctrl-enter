@@ -46,3 +46,5 @@ const ctrlEnter = (e: KeyboardEvent) => {
     }
   }
 }
+
+addEvent()
