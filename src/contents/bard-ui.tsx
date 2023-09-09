@@ -37,7 +37,7 @@ const PlasmoInline = async () => {
 
   useEffect(() => {
     fetchConfig()
-  })
+  }, [])
 
   chrome.storage.onChanged.addListener(() => {
     fetchConfig()
@@ -45,9 +45,7 @@ const PlasmoInline = async () => {
   return (
     <div style={{ width: '100%' }}>
       {config !== undefined && (
-        <p style={styles}>
-          {config ? 'Ctrl + Enter で送信' : 'デフォルトの設定で送信'}
-        </p>
+        <p style={styles}>{`${config ? 'Ctrl + ' : ''}Enter で送信`}</p>
       )}
       <div />
     </div>
