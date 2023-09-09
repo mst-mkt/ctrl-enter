@@ -1,4 +1,5 @@
 import type { PlasmoCSConfig } from 'plasmo'
+import { getConfig } from 'src/utils/config'
 import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
@@ -16,25 +17,37 @@ const sendButton = (elm: HTMLElement) =>
     'button'
   )[0]
 
-document.addEventListener(
-  'keydown',
-  (e) => {
-    if (isTextArea(e)) {
-      if (key(e) === 'enter') {
-        const keyEvent = new KeyboardEvent('keydown', {
-          code: 'Enter',
-          key: 'Enter',
-          keyCode: 13,
-          shiftKey: true
-        })
-        e.target?.dispatchEvent(keyEvent)
-        e.preventDefault()
-      } else if (key(e) === 'ctrlEnter') {
-        const target = e.target as HTMLElement
-        const button = sendButton(target)
-        button?.click()
-      }
+const addEvent = () => {
+  document.addEventListener('keydown', ctrlEnter, { capture: true })
+}
+
+chrome.storage.onChanged.addListener(async () => {
+  const config = await getConfig()
+  const instagramConfig = config.instagram
+
+  if (instagramConfig) {
+    addEvent()
+  } else {
+    document.removeEventListener('keydown', ctrlEnter, { capture: true })
+  }
+})
+
+const ctrlEnter = (e: KeyboardEvent) => {
+  if (isTextArea(e)) {
+    if (key(e) === 'enter') {
+      const keyEvent = new KeyboardEvent('keydown', {
+        code: 'Enter',
+        key: 'Enter',
+        keyCode: 13,
+        shiftKey: true
+      })
+      e.target?.dispatchEvent(keyEvent)
+      e.preventDefault()
+    } else if (key(e) === 'ctrlEnter') {
+      const target = e.target as HTMLElement
+      const button = sendButton(target)
+      button?.click()
     }
-  },
-  { capture: true }
-)
+  }
+}
+addEvent()
