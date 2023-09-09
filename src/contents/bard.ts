@@ -18,19 +18,7 @@ const sendButton = (elm: HTMLElement) =>
   )[0]
 
 const addEvent = () => {
-  document.addEventListener(
-    'keydown',
-    (e) => {
-      if (isTextArea(e)) {
-        if (key(e) === 'enter') {
-          e.stopPropagation()
-        } else if (key(e) === 'ctrlEnter') {
-          sendButton(e.target as HTMLElement)?.click()
-        }
-      }
-    },
-    { capture: true }
-  )
+  document.addEventListener('keydown', ctrlEnter, { capture: true })
 }
 
 chrome.storage.onChanged.addListener(async () => {
@@ -40,18 +28,19 @@ chrome.storage.onChanged.addListener(async () => {
   if (bardConfig) {
     addEvent()
   } else {
-    document.removeEventListener(
-      'keydown',
-      (e) => {
-        if (isTextArea(e)) {
-          if (key(e) === 'enter') {
-            e.stopPropagation()
-          } else if (key(e) === 'ctrlEnter') {
-            sendButton(e.target as HTMLElement)?.click()
-          }
-        }
-      },
-      { capture: true }
-    )
+    document.removeEventListener('keydown', ctrlEnter, { capture: true })
   }
 })
+
+const ctrlEnter = (e: KeyboardEvent) => {
+  console.log(isTextArea(e))
+  if (isTextArea(e)) {
+    if (key(e) === 'enter') {
+      e.stopPropagation()
+    } else if (key(e) === 'ctrlEnter') {
+      sendButton(e.target as HTMLElement)?.click()
+    }
+  }
+}
+
+addEvent()

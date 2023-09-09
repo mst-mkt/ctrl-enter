@@ -9,44 +9,30 @@ export const config: PlasmoCSConfig = {
 
 const isTextArea = (e: KeyboardEvent) => {
   const target = e.target as HTMLElement
-  const isChatTextbox = [
-    target.tagName === 'TEXTAREA',
-    target.getAttribute('name') === 'searchbox'
-  ].every(Boolean)
-  return isChatTextbox
+  return target.tagName === 'CIB-SERP'
 }
 
 const addEvent = () => {
-  document.addEventListener(
-    'keydown',
-    (e) => {
-      if (isTextArea(e)) {
-        if (key(e) === 'enter') {
-          e.stopPropagation()
-        }
-      }
-    },
-    { capture: true }
-  )
+  document.addEventListener('keydown', ctrlEnter, { capture: true })
 }
 
 chrome.storage.onChanged.addListener(async () => {
   const config = await getConfig()
   const bingConfig = config.bing
-
   if (bingConfig) {
     addEvent()
   } else {
-    document.removeEventListener(
-      'keydown',
-      (e) => {
-        if (isTextArea(e)) {
-          if (key(e) === 'enter') {
-            e.stopPropagation()
-          }
-        }
-      },
-      { capture: true }
-    )
+    document.removeEventListener('keydown', ctrlEnter, { capture: true })
   }
 })
+
+const ctrlEnter = (e: KeyboardEvent) => {
+  console.log(isTextArea(e))
+  if (isTextArea(e)) {
+    if (key(e) === 'enter') {
+      e.stopPropagation()
+    }
+  }
+}
+
+addEvent()
