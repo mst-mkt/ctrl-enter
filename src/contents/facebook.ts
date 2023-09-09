@@ -7,19 +7,30 @@ export const config: PlasmoCSConfig = {
   all_frames: true
 }
 
-const isTextArea = (e: KeyboardEvent) => {
-  const target = e.target as HTMLElement
-  return target.role === 'textbox'
-}
-
 const sendButton = {
   message: (elm: HTMLElement) =>
     elm.parentElement?.parentElement?.parentElement?.parentElement
       ?.parentElement?.nextElementSibling?.firstChild as HTMLElement | undefined
 }
 
+const handleKeyEvent = (e: KeyboardEvent) => {
+  if (isTextArea(e)) {
+    if (key(e) === 'enter') {
+      e.stopPropagation()
+    } else if (key(e) === 'handleKeyEvent') {
+      const target = e.target as HTMLElement
+      sendButton.message(target)?.click()
+    }
+  }
+}
+
+const isTextArea = (e: KeyboardEvent) => {
+  const target = e.target as HTMLElement
+  return target.role === 'textbox'
+}
+
 const addEvent = () => {
-  document.addEventListener('keydown', ctrlEnter, { capture: true })
+  document.addEventListener('keydown', handleKeyEvent, { capture: true })
 }
 
 chrome.storage.onChanged.addListener(async () => {
@@ -29,19 +40,8 @@ chrome.storage.onChanged.addListener(async () => {
   if (facebookConfig) {
     addEvent()
   } else {
-    document.removeEventListener('keydown', ctrlEnter, { capture: true })
+    document.removeEventListener('keydown', handleKeyEvent, { capture: true })
   }
 })
-
-const ctrlEnter = (e: KeyboardEvent) => {
-  if (isTextArea(e)) {
-    if (key(e) === 'enter') {
-      e.stopPropagation()
-    } else if (key(e) === 'ctrlEnter') {
-      const target = e.target as HTMLElement
-      sendButton.message(target)?.click()
-    }
-  }
-}
 
 addEvent()

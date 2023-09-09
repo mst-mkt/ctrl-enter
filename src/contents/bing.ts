@@ -7,13 +7,21 @@ export const config: PlasmoCSConfig = {
   all_frames: true
 }
 
+const handleKeyEvent = (e: KeyboardEvent) => {
+  if (isTextArea(e)) {
+    if (key(e) === 'enter') {
+      e.stopPropagation()
+    }
+  }
+}
+
 const isTextArea = (e: KeyboardEvent) => {
   const target = e.target as HTMLElement
   return target.tagName === 'CIB-SERP'
 }
 
 const addEvent = () => {
-  document.addEventListener('keydown', ctrlEnter, { capture: true })
+  document.addEventListener('keydown', handleKeyEvent, { capture: true })
 }
 
 chrome.storage.onChanged.addListener(async () => {
@@ -22,17 +30,8 @@ chrome.storage.onChanged.addListener(async () => {
   if (bingConfig) {
     addEvent()
   } else {
-    document.removeEventListener('keydown', ctrlEnter, { capture: true })
+    document.removeEventListener('keydown', handleKeyEvent, { capture: true })
   }
 })
-
-const ctrlEnter = (e: KeyboardEvent) => {
-  console.log(isTextArea(e))
-  if (isTextArea(e)) {
-    if (key(e) === 'enter') {
-      e.stopPropagation()
-    }
-  }
-}
 
 addEvent()

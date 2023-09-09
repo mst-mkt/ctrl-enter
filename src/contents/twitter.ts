@@ -11,16 +11,6 @@ export const config: PlasmoCSConfig = {
   all_frames: true
 }
 
-const isTextArea = (e: KeyboardEvent) => {
-  const target = e.target as HTMLElement
-  return target.role === 'textbox'
-}
-
-const isInDMpPage = () => {
-  const pageURL = location.href
-  return pageURL.includes('message')
-}
-
 const sendButton = (elm: HTMLElement) => {
   const isMessage = elm.getAttribute('data-testid') === 'dmComposerTextInput'
 
@@ -35,6 +25,34 @@ const sendButton = (elm: HTMLElement) => {
   return undefined
 }
 
+const handleKeyEventInDM = (e: KeyboardEvent) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.target?.dispatchEvent(
+      new KeyboardEvent('keydown', {
+        key: 'Enter',
+        code: 'Enter',
+        which: 13,
+        keyCode: 13,
+        bubbles: true,
+        shiftKey: true,
+        composed: true,
+        view: window
+      })
+    )
+    e.preventDefault()
+    e.stopPropagation()
+    e.stopImmediatePropagation()
+  } else if (key(e) === 'handleKeyEvent') {
+    const target = e.target as HTMLElement
+    sendButton(target)?.click()
+  }
+}
+
+const isInDMpPage = () => {
+  const pageURL = location.href
+  return pageURL.includes('message')
+}
+
 const messageElem = (): HTMLElement | null => {
   if (isInDMpPage()) {
     return document.querySelector('main')
@@ -46,7 +64,7 @@ const messageElem = (): HTMLElement | null => {
 const handleAddDMEvent = () => {
   const elem = messageElem()
   if (elem !== null && elem.onkeydown === null) {
-    elem.onkeydown = ctrlEnterInDM
+    elem.onkeydown = handleKeyEventInDM
   }
 }
 
@@ -75,26 +93,3 @@ chrome.storage.onChanged.addListener(async () => {
     handleRemoveDMEvent()
   }
 })
-
-const ctrlEnterInDM = (e: KeyboardEvent) => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.target?.dispatchEvent(
-      new KeyboardEvent('keydown', {
-        key: 'Enter',
-        code: 'Enter',
-        which: 13,
-        keyCode: 13,
-        bubbles: true,
-        shiftKey: true,
-        composed: true,
-        view: window
-      })
-    )
-    e.preventDefault()
-    e.stopPropagation()
-    e.stopImmediatePropagation()
-  } else if (key(e) === 'ctrlEnter') {
-    const target = e.target as HTMLElement
-    sendButton(target)?.click()
-  }
-}
