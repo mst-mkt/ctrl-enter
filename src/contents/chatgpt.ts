@@ -7,11 +7,6 @@ export const config: PlasmoCSConfig = {
   all_frames: true
 }
 
-const isTextArea = (e: KeyboardEvent) => {
-  const target = e.target as HTMLElement
-  return target.tagName === 'TEXTAREA'
-}
-
 const sendButton = {
   send: (elm: HTMLElement) =>
     elm.nextElementSibling as HTMLButtonElement | undefined,
@@ -19,8 +14,25 @@ const sendButton = {
     elm.nextElementSibling?.getElementsByTagName('button')[0]
 }
 
+const handleKeyEvent = (e: KeyboardEvent) => {
+  if (isTextArea(e)) {
+    e.stopPropagation()
+    if (key(e) === 'handleKeyEvent') {
+      const target = e.target as HTMLElement
+      const action = target.id === 'prompt-textarea' ? 'send' : 'edit'
+      const button = sendButton[action](e.target as HTMLElement)
+      button?.click()
+    }
+  }
+}
+
+const isTextArea = (e: KeyboardEvent) => {
+  const target = e.target as HTMLElement
+  return target.tagName === 'TEXTAREA'
+}
+
 const addEvent = () => {
-  document.addEventListener('keydown', ctrlEnter, { capture: true })
+  document.addEventListener('keydown', handleKeyEvent, { capture: true })
 }
 
 chrome.storage.onChanged.addListener(async (changes) => {
@@ -30,20 +42,8 @@ chrome.storage.onChanged.addListener(async (changes) => {
   if (chatgptConfig) {
     addEvent()
   } else {
-    document.removeEventListener('keydown', ctrlEnter, { capture: true })
+    document.removeEventListener('keydown', handleKeyEvent, { capture: true })
   }
 })
-
-const ctrlEnter = (e: KeyboardEvent) => {
-  if (isTextArea(e)) {
-    e.stopPropagation()
-    if (key(e) === 'ctrlEnter') {
-      const target = e.target as HTMLElement
-      const action = target.id === 'prompt-textarea' ? 'send' : 'edit'
-      const button = sendButton[action](e.target as HTMLElement)
-      button?.click()
-    }
-  }
-}
 
 addEvent()
