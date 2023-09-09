@@ -13,17 +13,7 @@ const isTextArea = (e: KeyboardEvent) => {
 }
 
 const addEvent = () => {
-  document.addEventListener(
-    'keydown',
-    (e) => {
-      if (isTextArea(e)) {
-        if (key(e) === 'enter') {
-          e.stopPropagation()
-        }
-      }
-    },
-    { capture: true }
-  )
+  document.addEventListener('keydown', ctrlEnter, { capture: true })
 }
 
 chrome.storage.onChanged.addListener(async () => {
@@ -33,18 +23,16 @@ chrome.storage.onChanged.addListener(async () => {
   if (discordConfig) {
     addEvent()
   } else {
-    document.removeEventListener(
-      'keydown',
-      (e) => {
-        if (isTextArea(e)) {
-          if (key(e) === 'enter') {
-            e.stopPropagation()
-          }
-        }
-      },
-      { capture: true }
-    )
+    document.removeEventListener('keydown', ctrlEnter, { capture: true })
   }
 })
+
+const ctrlEnter = (e: KeyboardEvent) => {
+  if (isTextArea(e)) {
+    if (key(e) === 'enter') {
+      e.stopPropagation()
+    }
+  }
+}
 
 addEvent()
