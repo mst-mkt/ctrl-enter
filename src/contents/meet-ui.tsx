@@ -1,6 +1,7 @@
 import type { PlasmoCSConfig, PlasmoGetInlineAnchor } from 'plasmo'
 import type { CSSProperties } from 'react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getConfig } from 'src/utils/config'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://meet.google.com/*']
@@ -27,9 +28,27 @@ const styles: CSSProperties = {
 }
 
 const PlasmoInline = () => {
+  const [config, setConfig] = useState<boolean>()
+
+  const fetchConfig = async () => {
+    const config = await getConfig()
+    setConfig(config.meet)
+  }
+
+  useEffect(() => {
+    fetchConfig()
+  })
+
+  chrome.storage.onChanged.addListener(() => {
+    fetchConfig()
+  })
   return (
     <div style={{ width: '100%' }}>
-      <p style={styles}>Ctrl + Enter で送信</p>
+      {config !== undefined && (
+        <p style={styles}>
+          {config ? 'Ctrl + Enter で送信' : 'デフォルトの設定で送信'}
+        </p>
+      )}
       <div />
     </div>
   )
