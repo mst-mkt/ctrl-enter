@@ -14,9 +14,8 @@ const isTextArea = (e: KeyboardEvent) => {
 
 const sendButton = {
   message: (elm: HTMLElement) =>
-    elm.parentElement?.parentElement?.nextElementSibling as
-      | HTMLElement
-      | undefined
+    elm.parentElement?.parentElement?.parentElement?.parentElement
+      ?.parentElement?.nextElementSibling?.firstChild as HTMLElement | undefined
 }
 
 const addEvent = () => {
@@ -38,9 +37,9 @@ const addEvent = () => {
 
 chrome.storage.onChanged.addListener(async () => {
   const config = await getConfig()
-  const instagramConfig = config.instagram
+  const facebookConfig = config.facebook
 
-  if (instagramConfig) {
+  if (facebookConfig) {
     addEvent()
   } else {
     document.removeEventListener(
@@ -59,3 +58,5 @@ chrome.storage.onChanged.addListener(async () => {
     )
   }
 })
+
+addEvent()

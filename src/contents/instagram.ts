@@ -28,6 +28,7 @@ const addEvent = () => {
           e.stopPropagation()
         } else if (key(e) === 'ctrlEnter') {
           const target = e.target as HTMLElement
+          console.log(target)
           sendButton.message(target)?.click()
         }
       }
@@ -59,3 +60,4 @@ chrome.storage.onChanged.addListener(async () => {
     )
   }
 })
+addEvent()
