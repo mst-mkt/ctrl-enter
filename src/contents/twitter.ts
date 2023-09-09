@@ -35,7 +35,7 @@ const sendButton = (elm: HTMLElement) => {
   return undefined
 }
 
-const DMelem = (): HTMLElement | null => {
+const messageElem = (): HTMLElement | null => {
   if (isInDMpPage()) {
     return document.querySelector('main')
   } else {
@@ -44,14 +44,14 @@ const DMelem = (): HTMLElement | null => {
 }
 
 const handleAddDMEvent = () => {
-  const elem = DMelem()
+  const elem = messageElem()
   if (elem !== null && elem.onkeydown === null) {
     elem.onkeydown = ctrlEnterInDM
   }
 }
 
 const handleRemoveDMEvent = () => {
-  const elem = DMelem()
+  const elem = messageElem()
   if (elem !== null) {
     elem.onkeydown = null
   }
