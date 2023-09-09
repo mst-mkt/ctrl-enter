@@ -21,9 +21,7 @@ const addEvent = () => {
     'keydown',
     (e) => {
       if (isTextArea(e)) {
-        console.log('nya')
         if (key(e) === 'enter') {
-          console.log('nya1')
           e.stopPropagation()
         }
       }
@@ -43,9 +41,7 @@ chrome.storage.onChanged.addListener(async () => {
       'keydown',
       (e) => {
         if (isTextArea(e)) {
-          console.log('nya')
           if (key(e) === 'enter') {
-            console.log('nya1')
             e.stopPropagation()
           }
         }
