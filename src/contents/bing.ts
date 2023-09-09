@@ -54,3 +54,5 @@ chrome.storage.onChanged.addListener(async () => {
     )
   }
 })
+
+addEvent()
