@@ -14,7 +14,8 @@ export const supportSites = {
   bing: ['https://www.bing.com'],
   bard: ['https://bard.google.com'],
   meet: ['https://meet.google.com/*'],
-  zoom: ['https://zoom.us/wc', 'https://pwa.zoom.us/wc']
+  zoom: ['https://zoom.us/wc', 'https://pwa.zoom.us/wc'],
+  facebook: ['https://www.facebook.com', 'https://facebook.com']
 } as const
 
 const defaultConfig: Record<keyof typeof supportSites, boolean> = {
@@ -25,7 +26,8 @@ const defaultConfig: Record<keyof typeof supportSites, boolean> = {
   bing: true,
   bard: true,
   meet: true,
-  zoom: true
+  zoom: true,
+  facebook: true
 } as const
 
 export const getConfig = async (): Promise<Record<string, boolean>> => {

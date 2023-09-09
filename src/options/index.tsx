@@ -1,6 +1,7 @@
 import {
   IconBrandBing,
   IconBrandDiscord,
+  IconBrandFacebook,
   IconBrandInstagram,
   IconBrandOpenai,
   IconBrandTwitter,
@@ -52,7 +53,8 @@ const OptionsIndex = () => {
     bing: <IconBrandBing />,
     bard: <IconMessage />,
     meet: <IconCamera />,
-    zoom: <IconBrandZoom />
+    zoom: <IconBrandZoom />,
+    facebook: <IconBrandFacebook />
   }
 
   return (
