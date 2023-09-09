@@ -28,7 +28,6 @@ const addEvent = () => {
           e.stopPropagation()
         } else if (key(e) === 'ctrlEnter') {
           const target = e.target as HTMLElement
-          console.log(target)
           sendButton.message(target)?.click()
         }
       }
