@@ -3,24 +3,26 @@ import type { CSSProperties } from 'react'
 import React from 'react'
 
 export const config: PlasmoCSConfig = {
-  matches: ['https://discord.com/*']
+  matches: ['https://meet.google.com/*']
 }
 
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
   const textbox = document.querySelector<HTMLElement>(
-    '[class^="channelTextArea"] > div[class^="scrollableContainer"]'
+    'div:has(> div > span > button[role="button"]):has(> div > div > label > span + textarea)'
   ) as Element
   return textbox
 }
 
-export const getShadowHostId = () => 'ctrl-enter-discord'
+export const getShadowHostId = () => 'ctrl-enter-meet'
 
 const styles: CSSProperties = {
   textAlign: 'right',
-  margin: '4px 0 0',
+  margin: '-12px 0 8px',
   fontWeight: 'bold',
-  color: '#ccc9',
+  color: '#9999',
   fontSize: '0.7rem',
+  padding: '0 15px',
+  boxSizing: 'border-box',
   width: '100%'
 }
 
