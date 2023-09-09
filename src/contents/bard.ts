@@ -27,19 +27,19 @@ const isTextArea = (e: KeyboardEvent) => {
   return target.tagName === 'TEXTAREA'
 }
 
-const addEvent = () => {
-  document.addEventListener('keydown', handleKeyEvent, { capture: true })
-}
-
-chrome.storage.onChanged.addListener(async () => {
+const handleEvent = async () => {
   const config = await getConfig()
   const bardConfig = config.bard
 
   if (bardConfig) {
-    addEvent()
+    document.addEventListener('keydown', handleKeyEvent, { capture: true })
   } else {
     document.removeEventListener('keydown', handleKeyEvent, { capture: true })
   }
+}
+
+chrome.storage.onChanged.addListener(() => {
+  handleEvent()
 })
 
-addEvent()
+handleEvent()

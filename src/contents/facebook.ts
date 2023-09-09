@@ -29,19 +29,19 @@ const isTextArea = (e: KeyboardEvent) => {
   return target.role === 'textbox'
 }
 
-const addEvent = () => {
-  document.addEventListener('keydown', handleKeyEvent, { capture: true })
-}
-
-chrome.storage.onChanged.addListener(async () => {
+const handleEvent = async () => {
   const config = await getConfig()
   const facebookConfig = config.facebook
 
   if (facebookConfig) {
-    addEvent()
+    document.addEventListener('keydown', handleKeyEvent, { capture: true })
   } else {
     document.removeEventListener('keydown', handleKeyEvent, { capture: true })
   }
+}
+
+chrome.storage.onChanged.addListener(() => {
+  handleEvent()
 })
 
-addEvent()
+handleEvent()

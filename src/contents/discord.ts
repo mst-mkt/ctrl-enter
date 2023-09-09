@@ -20,19 +20,19 @@ const isTextArea = (e: KeyboardEvent) => {
   return target.role === 'textbox'
 }
 
-const addEvent = () => {
-  document.addEventListener('keydown', handleKeyEvent, { capture: true })
-}
-
-chrome.storage.onChanged.addListener(async () => {
+const handleEvent = async () => {
   const config = await getConfig()
   const discordConfig = config.discord
 
   if (discordConfig) {
-    addEvent()
+    document.addEventListener('keydown', handleKeyEvent, { capture: true })
   } else {
     document.removeEventListener('keydown', handleKeyEvent, { capture: true })
   }
+}
+
+chrome.storage.onChanged.addListener(async () => {
+  handleEvent()
 })
 
-addEvent()
+handleEvent()
