@@ -1,4 +1,5 @@
 import type { PlasmoCSConfig } from 'plasmo'
+import { getConfig } from 'src/utils/config'
 import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
@@ -15,16 +16,41 @@ const isTextArea = (e: KeyboardEvent) => {
   return isChatTextbox
 }
 
-document.addEventListener(
-  'keydown',
-  (e) => {
-    if (isTextArea(e)) {
-      console.log('nya')
-      if (key(e) === 'enter') {
-        console.log('nya1')
-        e.stopPropagation()
+const addEvent = () => {
+  document.addEventListener(
+    'keydown',
+    (e) => {
+      if (isTextArea(e)) {
+        console.log('nya')
+        if (key(e) === 'enter') {
+          console.log('nya1')
+          e.stopPropagation()
+        }
       }
-    }
-  },
-  { capture: true }
-)
+    },
+    { capture: true }
+  )
+}
+
+chrome.storage.onChanged.addListener(async () => {
+  const config = await getConfig()
+  const bingConfig = config.bing
+
+  if (bingConfig) {
+    addEvent()
+  } else {
+    document.removeEventListener(
+      'keydown',
+      (e) => {
+        if (isTextArea(e)) {
+          console.log('nya')
+          if (key(e) === 'enter') {
+            console.log('nya1')
+            e.stopPropagation()
+          }
+        }
+      },
+      { capture: true }
+    )
+  }
+})

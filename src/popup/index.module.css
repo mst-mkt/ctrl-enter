@@ -1,7 +1,7 @@
 body:has(.container) {
   padding: 16px;
   margin: 0;
-  background-color: #fafaff;
+  background-color: #fdfeff;
 }
 
 .container {
@@ -20,7 +20,7 @@ body:has(.container) {
   flex-shrink: 1;
   padding: 0;
   margin: 0;
-  color: #222;
+  color: #335;
   word-break: keep-all;
 }
 
@@ -38,31 +38,89 @@ body:has(.container) {
   background-color: #eee;
 }
 
-.check {
+.input {
   display: flex;
-  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  height: 64px;
+  border-top: solid 1px #ddd9;
+  border-bottom: solid 1px #ddd9;
 }
 
-.checkLabel {
-  display: contents;
+.input > label {
   flex-grow: 1;
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-
-.checkInput {
-  flex-grow: 0;
-  flex-shrink: 0;
-  margin-left: 8px;
-}
-
-.url {
-  flex-grow: 0;
   flex-shrink: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-all;
+  font-size: 16px;
+  line-height: 36px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.input svg {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  color: #669;
+}
+
+.input > input {
+  position: relative;
+  width: 20px;
+  height: 8px;
+  margin-right: 8px;
+  appearance: none;
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.input > input:checked {
+  background-color: #cce;
+}
+
+.input > input:focus {
+  outline: none;
+}
+
+.input > input::before {
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  display: block;
+  width: 14px;
+  height: 14px;
+  content: '';
+  background-color: #555;
+  border-radius: 7px;
+  box-shadow: 0 0 0 0 #3352;
+  transition-timing-function: ease-out, ease-in-out, ease-in-out;
+  transition-duration: 0.2s, 0.1s, 0.1s;
+  transition-property: left, background-color, box-shadow;
+}
+
+.input > input:checked::before {
+  left: 09px;
+  background-color: #669;
+}
+
+.input > input:is(:hover, :focus)::before {
+  box-shadow: 0 0 0 4px #3352;
+}
+
+.input > input:checked:is(:hover, :focus)::before {
+  box-shadow: 0 0 0 4px #42428122;
+}
+
+.link {
+  padding-inline: 0.4em;
+  color: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 70%,
+    #3352 70%,
+    #3352 100%
+  );
 }
