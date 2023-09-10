@@ -138,7 +138,7 @@ export const IndexPopup = () => {
         )}
         {status === 'notSupported' && (
           <div>
-            <p>このサイトはctrl+Enterに対応していません</p>
+            <p>{`このサイトは拡張機能 'ctrl+Enter' に対応していません`}</p>
           </div>
         )}
       </main>

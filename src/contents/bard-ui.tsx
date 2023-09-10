@@ -1,10 +1,7 @@
-import type {
-  PlasmoCSConfig,
-  PlasmoCSUIAnchor,
-  PlasmoGetInlineAnchor
-} from 'plasmo'
+import type { PlasmoCSConfig, PlasmoGetInlineAnchor } from 'plasmo'
 import type { CSSProperties } from 'react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getConfig } from 'src/utils/config'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://bard.google.com/*']
@@ -30,10 +27,26 @@ const styles: CSSProperties = {
   width: '100%'
 }
 
-const PlasmoInline = () => {
+const PlasmoInline = async () => {
+  const [config, setConfig] = useState<boolean>()
+
+  const fetchConfig = async () => {
+    const config = await getConfig()
+    setConfig(config.chatgpt)
+  }
+
+  useEffect(() => {
+    fetchConfig()
+  }, [])
+
+  chrome.storage.onChanged.addListener(() => {
+    fetchConfig()
+  })
   return (
     <div style={{ width: '100%' }}>
-      <p style={styles}>Ctrl + Enter で送信</p>
+      {config !== undefined && (
+        <p style={styles}>{`${config ? 'Ctrl + ' : ''}Enter で送信`}</p>
+      )}
       <div />
     </div>
   )
