@@ -42,3 +42,20 @@ export const getConfig = async (): Promise<Record<string, boolean>> => {
 export const saveConfig = async (config: Record<string, boolean>) => {
   await storage.set('config', JSON.stringify(config))
 }
+
+const defaultSetting = {
+  入力方法を表示する: true
+}
+
+export const getSetting = async () => {
+  const settingString = await storage.get('setting')
+
+  if (settingString === undefined) return defaultSetting
+
+  const setting = JSON.parse(settingString)
+  return setting ?? defaultConfig
+}
+
+export const saveSetting = async (setting: Record<string, boolean>) => {
+  await storage.set('setting', JSON.stringify(setting))
+}

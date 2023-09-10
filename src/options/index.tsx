@@ -10,21 +10,36 @@ import {
   IconMessage
 } from '@tabler/icons-react'
 import { useEffect, useState, type ChangeEvent } from 'react'
-import { getConfig, saveConfig } from 'src/utils/config'
+import {
+  getConfig,
+  getSetting,
+  saveConfig,
+  saveSetting
+} from 'src/utils/config'
 
 import styles from './index.module.css'
 
 const OptionsIndex = () => {
   const [config, setConfig] = useState<Record<string, boolean>>()
+  const [setting, setSetting] = useState<Record<string, boolean>>()
 
   useEffect(() => {
     const fetchConfig = async () => {
       const config = await getConfig()
       setConfig(config)
     }
-    fetchConfig()
 
-    const fetchIntervalId = setInterval(fetchConfig, 1000)
+    const fetchSetting = async () => {
+      const setting = await getSetting()
+      setSetting(setting)
+    }
+    fetchConfig()
+    fetchSetting()
+
+    const fetchIntervalId = setInterval(async () => {
+      fetchConfig()
+      fetchSetting()
+    }, 1000)
 
     return () => {
       clearInterval(fetchIntervalId)
@@ -41,7 +56,17 @@ const OptionsIndex = () => {
     await saveConfig(newConfig)
   }
 
-  if (config === undefined) {
+  const changeSetting = async (
+    key: string,
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    if (setting === undefined) return
+    const newSetting = { ...setting, [key]: e.target.checked }
+    setSetting(newSetting)
+    await saveSetting(newSetting)
+  }
+
+  if (config === undefined || setting === undefined) {
     return <div>loading...</div>
   }
 
@@ -74,6 +99,21 @@ const OptionsIndex = () => {
                   type="checkbox"
                   checked={value}
                   onChange={(e) => changeConfig(key, e)}
+                />
+              </div>
+            ))}
+          </div>
+          <h2 className={styles.sectionTitle}>詳細設定</h2>
+          <div>
+            {Object.entries(setting).map(([key, value]) => (
+              <div key={key} className={styles.input}>
+                <label htmlFor={key}>{key}</label>
+                <input
+                  name={key}
+                  id={key}
+                  type="checkbox"
+                  checked={value}
+                  onChange={(e) => changeSetting(key, e)}
                 />
               </div>
             ))}

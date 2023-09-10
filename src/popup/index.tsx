@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import {
   IconBan,
   IconBrandBing,
@@ -19,7 +20,13 @@ import {
   type MouseEvent
 } from 'react'
 import type { supportSitesList } from 'src/types/type'
-import { getConfig, saveConfig, supportSites } from 'src/utils/config'
+import {
+  getConfig,
+  getSetting,
+  saveConfig,
+  saveSetting,
+  supportSites
+} from 'src/utils/config'
 
 import styles from './index.module.css'
 
@@ -27,6 +34,21 @@ export const IndexPopup = () => {
   const [url, setUrl] = useState<string | null>(null)
   const [isChecked, setIsChecked] = useState<boolean>(false)
   const defaultAdaptedPages = ['https://www.threads.net/']
+
+  const [setting, setSetting] = useState<Record<string, boolean>>()
+
+  const fetchSetting = async () => {
+    const setting = await getSetting()
+    setSetting(setting)
+  }
+
+  useEffect(() => {
+    fetchSetting()
+  }, [])
+
+  chrome.storage.onChanged.addListener(() => {
+    fetchSetting()
+  })
 
   const openSettings = () => {
     chrome.runtime.openOptionsPage()
@@ -105,6 +127,16 @@ export const IndexPopup = () => {
     unknown: <IconBan />
   }
 
+  const changeSetting = async (
+    key: string,
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    if (setting === undefined) return
+    const newSetting = { ...setting, [key]: e.target.checked }
+    setSetting(newSetting)
+    await saveSetting(newSetting)
+  }
+
   if (url === null) {
     return <div className={styles.container}>loading...</div>
   }
@@ -119,16 +151,28 @@ export const IndexPopup = () => {
       </header>
       <main>
         {status === 'supported' && (
-          <div className={styles.input}>
-            <span>{icons[siteName]}</span>
-            <label htmlFor={siteName}>{siteName}</label>
-            <input
-              type="checkbox"
-              name={siteName}
-              id={siteName}
-              checked={isChecked}
-              onChange={check}
-            />
+          <div>
+            <div className={styles.input}>
+              <span>{icons[siteName]}</span>
+              <label htmlFor={siteName}>{siteName}</label>
+              <input
+                type="checkbox"
+                name={siteName}
+                id={siteName}
+                checked={isChecked}
+                onChange={check}
+              />
+            </div>
+            <div className={styles.input}>
+              <label htmlFor={`${siteName}setting`}>入力方法を表示する</label>
+              <input
+                type="checkbox"
+                name={`${siteName}setting`}
+                id={`${siteName}setting`}
+                checked={setting?.入力方法を表示する}
+                onChange={(e) => changeSetting('入力方法を表示する', e)}
+              />
+            </div>
           </div>
         )}
         {status === 'adapted' && (
