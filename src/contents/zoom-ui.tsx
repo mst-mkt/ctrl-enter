@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { getConfig } from 'src/utils/config'
 
 export const config: PlasmoCSConfig = {
-  matches: ['https://zoom.us/wc/*', 'https://pwa.zoom.us/wc/*']
+  matches: ['https://zoo.us/wc/*', 'https://*.zoom.us/wc/*']
 }
 
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {

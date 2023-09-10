@@ -3,7 +3,7 @@ import { getConfig } from 'src/utils/config'
 import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
-  matches: ['https://zoom.us/wc/*', 'https://pwa.zoom.us/wc/*'],
+  matches: ['https://zoo.us/wc/*', 'https://*.zoom.us/wc/*'],
   all_frames: true
 }
 
