@@ -42,7 +42,7 @@ const handleKeyEventInDM = (e: KeyboardEvent) => {
     e.preventDefault()
     e.stopPropagation()
     e.stopImmediatePropagation()
-  } else if (key(e) === 'handleKeyEvent') {
+  } else if (key(e) === 'ctrlEnter') {
     const target = e.target as HTMLElement
     sendButton(target)?.click()
   }

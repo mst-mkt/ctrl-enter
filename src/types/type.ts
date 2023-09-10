@@ -1,6 +1,6 @@
 import type { supportSites } from './../utils/config'
 
-export type keys = 'enter' | 'handleKeyEvent' | 'shiftEnter' | 'altEnter'
+export type keys = 'enter' | 'ctrlEnter' | 'shiftEnter' | 'altEnter'
 
 export type keyActions = 'send' | 'newLine' | 'none'
 
