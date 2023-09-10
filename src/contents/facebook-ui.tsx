@@ -14,7 +14,7 @@ export const config: PlasmoCSConfig = {
 
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
   const textbox = document.querySelector<HTMLElement>(
-    'div:has(> div:first-child > [role="button"]):hasSubscribers(> div [role="textbox"]):has(> span:last-child > [role="button"])'
+    'div:has(> span:first-child > [role="button"]):has(> div [role="textbox"]):has(> span:last-child > [role="button"])'
   ) as Element
 
   return textbox
@@ -24,10 +24,12 @@ export const getShadowHostId = () => 'ctrl-enter-facebook'
 
 const styles: CSSProperties = {
   textAlign: 'right',
-  margin: '4px 0 0',
+  margin: '-8px 0 4px',
   fontWeight: 'bold',
   color: '#9999',
   fontSize: '0.7rem',
+  padding: '0 44px',
+  boxSizing: 'border-box',
   width: '100%'
 }
 
