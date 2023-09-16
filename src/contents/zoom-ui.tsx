@@ -1,7 +1,7 @@
 import type { PlasmoCSConfig, PlasmoGetInlineAnchor } from 'plasmo'
 import type { CSSProperties, IframeHTMLAttributes } from 'react'
 import React, { useEffect, useState } from 'react'
-import { getConfig } from 'src/utils/config'
+import { getConfig, getSetting } from 'src/utils/config'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://zoo.us/wc/*', 'https://*.zoom.us/wc/*']
@@ -31,6 +31,7 @@ const styles: CSSProperties = {
 
 const PlasmoInline = () => {
   const [config, setConfig] = useState<boolean>()
+  const [setting, setSetting] = useState(false)
 
   const fetchConfig = async () => {
     const config = await getConfig()
@@ -41,8 +42,18 @@ const PlasmoInline = () => {
     fetchConfig()
   }, [])
 
+  const fetchSetting = async () => {
+    const setting = await getSetting()
+    setSetting(setting.入力方法を表示する)
+  }
+
+  useEffect(() => {
+    fetchSetting()
+  }, [])
+
   chrome.storage.onChanged.addListener(() => {
     fetchConfig()
+    fetchSetting()
   })
   const textCount =
     document

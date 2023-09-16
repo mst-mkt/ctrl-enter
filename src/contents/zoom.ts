@@ -28,7 +28,7 @@ const handleKeyEvent = (e: KeyboardEvent) => {
       })
       e.target?.dispatchEvent(keyEvent)
       e.preventDefault()
-    } else if (key(e) === 'handleKeyEvent') {
+    } else if (key(e) === 'ctrlEnter') {
       const target = e.target as HTMLElement
       const button = sendButton(target)
       button?.click()

@@ -17,7 +17,7 @@ const sendButton = {
 const handleKeyEvent = (e: KeyboardEvent) => {
   if (isTextArea(e)) {
     e.stopPropagation()
-    if (key(e) === 'handleKeyEvent') {
+    if (key(e) === 'ctrlEnter') {
       const target = e.target as HTMLElement
       const action = target.id === 'prompt-textarea' ? 'send' : 'edit'
       const button = sendButton[action](e.target as HTMLElement)

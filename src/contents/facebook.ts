@@ -17,7 +17,8 @@ const handleKeyEvent = (e: KeyboardEvent) => {
   if (isTextArea(e)) {
     if (key(e) === 'enter') {
       e.stopPropagation()
-    } else if (key(e) === 'handleKeyEvent') {
+    } else if (key(e) === 'ctrlEnter') {
+      e.stopPropagation()
       const target = e.target as HTMLElement
       sendButton.message(target)?.click()
     }
