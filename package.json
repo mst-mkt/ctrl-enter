@@ -10,6 +10,7 @@
     "dev:plasmo": "plasmo dev",
     "dev:hcm": "hcm '**/*.module.css' -w --ignore-path .gitignore",
     "build": "plasmo build",
+    "package": "plasmo package",
     "lint": "pnpm run lint:js && pnpm run lint:prettier && pnpm run lint:style",
     "lint:js": "eslint --ext .ts,.tsx,.js --ignore-path .gitignore .",
     "lint:prettier": "prettier --check \"./**/*.{ts,tsx,js}\" --ignore-path .gitignore",
