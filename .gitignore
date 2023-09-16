@@ -35,3 +35,5 @@ dist/
 # css modules
 *.css.d.ts
 *.css.d.ts.map
+
+key.json
