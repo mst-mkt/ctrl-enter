@@ -1,0 +1,25 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 8.6.3
+      - name: setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.node-version'
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version: 18
+      - run: pnpm i --frozen-lockfile
+      - run: pnpm run lint
+      - run: pnpm run typecheck
+      - name: plasmo Test
+        run: pnpm run test
