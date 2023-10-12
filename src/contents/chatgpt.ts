@@ -8,8 +8,16 @@ export const config: PlasmoCSConfig = {
 }
 
 const sendButton = {
-  send: (elm: HTMLElement) =>
-    elm.nextElementSibling as HTMLButtonElement | undefined,
+  send: (elm: HTMLElement) => {
+    let sibling: HTMLElement | null = elm
+    while (sibling !== null) {
+      sibling = sibling.nextElementSibling as HTMLElement | null
+      if (sibling && sibling.getAttribute('data-testid') === 'send-button') {
+        return sibling as HTMLButtonElement
+      }
+    }
+    return undefined
+  },
   edit: (elm: HTMLElement) =>
     elm.nextElementSibling?.getElementsByTagName('button')[0]
 }
