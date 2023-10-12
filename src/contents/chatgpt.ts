@@ -9,12 +9,12 @@ export const config: PlasmoCSConfig = {
 
 const sendButton = {
   send: (elm: HTMLElement) => {
-    let sibling: HTMLElement | null = elm
-    while (sibling !== null) {
-      sibling = sibling.nextElementSibling as HTMLElement | null
-      if (sibling && sibling.getAttribute('data-testid') === 'send-button') {
-        return sibling as HTMLButtonElement
-      }
+    const parentElement = elm.parentElement
+    if (parentElement) {
+      const sendButton = parentElement.querySelector(
+        '[data-testid="send-button"]'
+      ) as HTMLButtonElement | null
+      return sendButton
     }
     return undefined
   },
