@@ -1,7 +1,7 @@
 {
   "name": "ctrl-enter",
   "displayName": "ctrl-Enter",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "'Enter'で送信するWebサイトを'Ctrl + Enter'に矯正するブラウザ拡張機能",
   "author": "INIAD.ts",
   "scripts": {
