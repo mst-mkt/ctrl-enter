@@ -35,8 +35,8 @@ devDependencies:
     specifier: 20.5.0
     version: 20.5.0
   '@types/react':
-    specifier: 18.2.20
-    version: 18.2.20
+    specifier: 18.2.75
+    version: 18.2.75
   '@types/react-dom':
     specifier: 18.2.24
     version: 18.2.24
@@ -60,7 +60,7 @@ devDependencies:
     version: 4.2.0
   notios:
     specifier: ^0.4.1
-    version: 0.4.1(@types/react@18.2.20)
+    version: 0.4.1(@types/react@18.2.75)
   postcss:
     specifier: ^8.4.38
     version: 8.4.38
@@ -2655,19 +2655,14 @@ packages:
   /@types/react-dom@18.2.24:
     resolution: {integrity: sha512-cN6upcKd8zkGy4HU9F1+/s98Hrp6D4MOcippK4PoE8OZRngohHZpbJn1GsaDLz87MqvHNoT13nHvNqM9ocRHZg==}
     dependencies:
-      '@types/react': 18.2.20
+      '@types/react': 18.2.75
     dev: true
 
-  /@types/react@18.2.20:
-    resolution: {integrity: sha512-WKNtmsLWJM/3D5mG4U84cysVY31ivmyw85dE84fOCk5Hx78wezB/XEjVPWl2JTZ5FkEeaTJf+VgUAUn3PE7Isw==}
+  /@types/react@18.2.75:
+    resolution: {integrity: sha512-+DNnF7yc5y0bHkBTiLKqXFe+L4B3nvOphiMY3tuA5X10esmjqk7smyBZzbGTy2vsiy/Bnzj8yFIBL8xhRacoOg==}
     dependencies:
       '@types/prop-types': 15.7.12
-      '@types/scheduler': 0.23.0
       csstype: 3.1.3
-    dev: true
-
-  /@types/scheduler@0.23.0:
-    resolution: {integrity: sha512-YIoDCTH3Af6XM5VuwGG/QL/CJqga1Zm3NkU3HZ4ZHK2fRMPYP1VczsTUqtsf43PH/iJNVlPHAo2oWX7BSdB2Hw==}
     dev: true
 
   /@types/semver@7.5.8:
@@ -4937,13 +4932,13 @@ packages:
       ink: '>=3.0.0'
       react: '>=16.8.0'
     dependencies:
-      ink: 3.2.0(@types/react@18.2.20)(react@18.2.0)
+      ink: 3.2.0(@types/react@18.2.75)(react@18.2.0)
       prop-types: 15.8.1
       react: 18.2.0
       string-width: 4.2.3
     dev: true
 
-  /ink@3.2.0(@types/react@18.2.20)(react@18.2.0):
+  /ink@3.2.0(@types/react@18.2.75)(react@18.2.0):
     resolution: {integrity: sha512-firNp1q3xxTzoItj/eOOSZQnYSlyrWks5llCTVX37nJ59K3eXbQ8PtzCguqo8YI19EELo5QxaKnJd4VxzhU8tg==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -4953,7 +4948,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@types/react': 18.2.20
+      '@types/react': 18.2.75
       ansi-escapes: 4.3.2
       auto-bind: 4.0.0
       chalk: 4.1.2
@@ -6065,13 +6060,13 @@ packages:
     engines: {node: '>=14.16'}
     dev: false
 
-  /notios@0.4.1(@types/react@18.2.20):
+  /notios@0.4.1(@types/react@18.2.75):
     resolution: {integrity: sha512-A/dxSl9WKsSFVH8vAyhlI0u5abC4ulxLI911sBwVvBMcm0xnp5mi/uhPhYJnzqzwf16HbPcxJthBsUxp+EctGQ==}
     hasBin: true
     dependencies:
       commander: 9.5.0
       cross-spawn: 7.0.3
-      ink: 3.2.0(@types/react@18.2.20)(react@18.2.0)
+      ink: 3.2.0(@types/react@18.2.75)(react@18.2.0)
       ink-divider: 3.0.0(ink@3.2.0)(react@18.2.0)
       node-ipc: 10.1.0
       npm-run-all: 4.1.5
