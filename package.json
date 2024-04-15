@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@plasmohq/storage": "^1.9.3",
-    "@tabler/icons-react": "^2.47.0",
+    "@tabler/icons-react": "^3.2.0",
     "hook": "link:@plasmohq/storage/hook",
     "plasmo": "0.83.0",
     "react": "18.2.0",
