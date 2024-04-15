@@ -24,7 +24,7 @@
     "@plasmohq/storage": "^1.9.3",
     "@tabler/icons-react": "^2.47.0",
     "hook": "link:@plasmohq/storage/hook",
-    "plasmo": "0.83.0",
+    "plasmo": "0.85.2",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
