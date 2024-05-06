@@ -54,7 +54,7 @@ devDependencies:
     version: 7.34.1(eslint@8.57.0)
   happy-css-modules:
     specifier: ^2.1.2
-    version: 2.1.2(less@4.2.0)(postcss@8.4.38)(sass@1.74.1)
+    version: 2.1.2(less@4.2.0)(postcss@8.4.38)(sass@1.76.0)
   less:
     specifier: ^4.2.0
     version: 4.2.0
@@ -68,8 +68,8 @@ devDependencies:
     specifier: 3.2.5
     version: 3.2.5
   sass:
-    specifier: ^1.74.1
-    version: 1.74.1
+    specifier: ^1.76.0
+    version: 1.76.0
   stylelint:
     specifier: ^15.11.0
     version: 15.11.0(typescript@5.1.6)
@@ -1456,7 +1456,7 @@ packages:
     dependencies:
       '@parcel/plugin': 2.9.3(@parcel/core@2.9.3)
       '@parcel/source-map': 2.1.1
-      sass: 1.74.1
+      sass: 1.76.0
     transitivePeerDependencies:
       - '@parcel/core'
     dev: false
@@ -4663,7 +4663,7 @@ packages:
     engines: {node: '>= 10.x'}
     dev: false
 
-  /happy-css-modules@2.1.2(less@4.2.0)(postcss@8.4.38)(sass@1.74.1):
+  /happy-css-modules@2.1.2(less@4.2.0)(postcss@8.4.38)(sass@1.76.0):
     resolution: {integrity: sha512-wRiJaJ6AYGdMrDDuuxNKzKwmCHF9UxJQlYtiGsKj57hs9ifGA0sUiquyM+r/tkt6/Kr+sVPAgIZxVPc0jYU0SQ==}
     engines: {node: '>=16.0.0'}
     hasBin: true
@@ -4693,7 +4693,7 @@ packages:
       postcss-modules: 4.3.1(postcss@8.4.38)
       postcss-selector-parser: 6.0.16
       postcss-value-parser: 4.2.0
-      sass: 1.74.1
+      sass: 1.76.0
       source-map: 0.7.4
       yargs: 17.7.2
     transitivePeerDependencies:
@@ -7037,8 +7037,8 @@ packages:
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  /sass@1.74.1:
-    resolution: {integrity: sha512-w0Z9p/rWZWelb88ISOLyvqTWGmtmu2QJICqDBGyNnfG4OUnPX9BBjjYIXUpXCMOOg5MQWNpqzt876la1fsTvUA==}
+  /sass@1.76.0:
+    resolution: {integrity: sha512-nc3LeqvF2FNW5xGF1zxZifdW3ffIz5aBb7I7tSvOoNu7z1RQ6pFt9MBuiPtjgaI62YWrM/txjWlOCFiGtf2xpw==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:

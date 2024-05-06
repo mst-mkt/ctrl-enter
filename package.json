@@ -43,7 +43,7 @@
     "notios": "^0.4.1",
     "postcss": "^8.4.38",
     "prettier": "3.2.5",
-    "sass": "^1.74.1",
+    "sass": "^1.76.0",
     "stylelint": "^15.11.0",
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-config-recess-order": "^4.6.0",
