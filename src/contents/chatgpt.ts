@@ -3,7 +3,7 @@ import { getConfig } from 'src/utils/config'
 import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
-  matches: ['https://chat.openai.com/*'],
+  matches: ['https://chat.openai.com/*', 'https://chatgpt.com/*'],
   all_frames: true
 }
 
