@@ -79,7 +79,8 @@ const OptionsIndex = () => {
     bard: <IconMessage />,
     meet: <IconCamera />,
     zoom: <IconBrandZoom />,
-    facebook: <IconBrandFacebook />
+    facebook: <IconBrandFacebook />,
+    claude: <IconMessage />
   }
 
   return (

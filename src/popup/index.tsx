@@ -124,6 +124,7 @@ export const IndexPopup = () => {
     meet: <IconCamera />,
     zoom: <IconBrandZoom />,
     facebook: <IconBrandFacebook />,
+    claude: <IconMessage />,
     unknown: <IconBan />
   }
 
