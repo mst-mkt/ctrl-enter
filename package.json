@@ -11,8 +11,8 @@
     "dev:hcm": "hcm '**/*.module.css' -w --ignore-path .gitignore",
     "build": "plasmo build",
     "package": "plasmo package",
-    "lint": "",
-    "lint:fix": "",
+    "lint": "biome check ./src/",
+    "lint:fix": "npm run lint -- --apply",
     "test": "plasmo test",
     "hcm": "hcm '**/*.module.css'",
     "typecheck": "pnpm hcm && tsc --noEmit"
