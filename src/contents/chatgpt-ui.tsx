@@ -1,15 +1,15 @@
 import type { PlasmoCSConfig, PlasmoGetInlineAnchor } from 'plasmo'
 import type { CSSProperties } from 'react'
-import React, { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getConfig, getSetting } from 'src/utils/config'
 
 export const config: PlasmoCSConfig = {
-  matches: ['https://chat.openai.com/*']
+  matches: ['https://chat.openai.com/*'],
 }
 
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
   const textbox = document.querySelector<HTMLElement>(
-    'div:has(> div > #prompt-textarea)'
+    'div:has(> div > #prompt-textarea)',
   ) as Element
   return textbox
 }
@@ -22,7 +22,7 @@ const styles: CSSProperties = {
   fontWeight: 'bold',
   color: '#aaa9',
   fontSize: '0.7rem',
-  width: '100%'
+  width: '100%',
 }
 
 const PlasmoInline = () => {

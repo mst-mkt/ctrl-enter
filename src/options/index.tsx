@@ -7,15 +7,10 @@ import {
   IconBrandTwitter,
   IconBrandZoom,
   IconCamera,
-  IconMessage
+  IconMessage,
 } from '@tabler/icons-react'
-import { useEffect, useState, type ChangeEvent } from 'react'
-import {
-  getConfig,
-  getSetting,
-  saveConfig,
-  saveSetting
-} from 'src/utils/config'
+import { type ChangeEvent, useEffect, useState } from 'react'
+import { getConfig, getSetting, saveConfig, saveSetting } from 'src/utils/config'
 
 import styles from './index.module.css'
 
@@ -46,20 +41,14 @@ const OptionsIndex = () => {
     }
   }, [])
 
-  const changeConfig = async (
-    key: string,
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
+  const changeConfig = async (key: string, e: ChangeEvent<HTMLInputElement>) => {
     if (config === undefined) return
     const newConfig = { ...config, [key]: e.target.checked }
     setConfig(newConfig)
     await saveConfig(newConfig)
   }
 
-  const changeSetting = async (
-    key: string,
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
+  const changeSetting = async (key: string, e: ChangeEvent<HTMLInputElement>) => {
     if (setting === undefined) return
     const newSetting = { ...setting, [key]: e.target.checked }
     setSetting(newSetting)
@@ -80,7 +69,7 @@ const OptionsIndex = () => {
     meet: <IconCamera />,
     zoom: <IconBrandZoom />,
     facebook: <IconBrandFacebook />,
-    claude: <IconMessage />
+    claude: <IconMessage />,
   }
 
   return (

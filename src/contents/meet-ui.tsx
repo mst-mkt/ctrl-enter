@@ -1,15 +1,15 @@
 import type { PlasmoCSConfig, PlasmoGetInlineAnchor } from 'plasmo'
 import type { CSSProperties } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getConfig, getSetting } from 'src/utils/config'
 
 export const config: PlasmoCSConfig = {
-  matches: ['https://meet.google.com/*']
+  matches: ['https://meet.google.com/*'],
 }
 
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
   const textbox = document.querySelector<HTMLElement>(
-    'div:has(> div > span > button[role="button"]):has(> div > div > label > span + textarea)'
+    'div:has(> div > span > button[role="button"]):has(> div > div > label > span + textarea)',
   ) as Element
   return textbox
 }
@@ -24,7 +24,7 @@ const styles: CSSProperties = {
   fontSize: '0.7rem',
   padding: '0 15px',
   boxSizing: 'border-box',
-  width: '100%'
+  width: '100%',
 }
 
 const PlasmoInline = () => {
@@ -55,9 +55,7 @@ const PlasmoInline = () => {
   })
   return (
     <div style={{ width: '100%' }}>
-      {config !== undefined && (
-        <p style={styles}>{`${config ? 'Ctrl + ' : ''}Enter で送信`}</p>
-      )}
+      {config !== undefined && <p style={styles}>{`${config ? 'Ctrl + ' : ''}Enter で送信`}</p>}
       <div />
     </div>
   )

@@ -4,12 +4,12 @@ import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://bard.google.com/*'],
-  all_frames: true
+  all_frames: true,
 }
 
 const sendButton = (elm: HTMLElement) =>
   elm.parentElement?.parentElement?.parentElement?.parentElement?.nextElementSibling?.getElementsByTagName(
-    'button'
+    'button',
   )[0]
 
 const handleKeyEvent = (e: KeyboardEvent) => {

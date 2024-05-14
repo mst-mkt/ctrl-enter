@@ -4,25 +4,23 @@ import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://claude.ai/chat/*', 'https://claude.ai/chats'],
-  all_frames: true
+  all_frames: true,
 }
 
 const sendButton = {
   send: (elm: HTMLElement) => {
     const parent = elm.closest('.flex.items-start.gap-4')
     const buttonAriaLabel = 'Send Message'
-    const button = parent?.querySelector(
-      `button[aria-label="${buttonAriaLabel}"]`
-    ) as HTMLButtonElement | undefined
+    const button = parent?.querySelector(`button[aria-label="${buttonAriaLabel}"]`) as
+      | HTMLButtonElement
+      | undefined
     return button
   },
   startChat: (elm: HTMLElement) => {
     const parent = elm.closest('.grid')
-    const button = parent?.querySelector('button.w-full') as
-      | HTMLButtonElement
-      | undefined
+    const button = parent?.querySelector('button.w-full') as HTMLButtonElement | undefined
     return button
-  }
+  },
 }
 
 const handleKeyEvent = (e: KeyboardEvent) => {
@@ -42,10 +40,7 @@ const handleKeyEvent = (e: KeyboardEvent) => {
 
 const isTextArea = (e: KeyboardEvent) => {
   const target = e.target as HTMLElement
-  return (
-    target.className ===
-    'ProseMirror break-words max-w-[60ch] ProseMirror-focused'
-  )
+  return target.className === 'ProseMirror break-words max-w-[60ch] ProseMirror-focused'
 }
 
 const handleEvent = async () => {

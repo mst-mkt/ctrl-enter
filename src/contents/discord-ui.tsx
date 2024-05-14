@@ -1,15 +1,15 @@
 import type { PlasmoCSConfig, PlasmoGetInlineAnchor } from 'plasmo'
 import type { CSSProperties } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getConfig, getSetting } from 'src/utils/config'
 
 export const config: PlasmoCSConfig = {
-  matches: ['https://discord.com/*']
+  matches: ['https://discord.com/*'],
 }
 
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
   const textbox = document.querySelector<HTMLElement>(
-    '[class^="channelTextArea"] > div[class^="scrollableContainer"]'
+    '[class^="channelTextArea"] > div[class^="scrollableContainer"]',
   ) as Element
   return textbox
 }
@@ -22,7 +22,7 @@ const styles: CSSProperties = {
   fontWeight: 'bold',
   color: '#ccc9',
   fontSize: '0.7rem',
-  width: '100%'
+  width: '100%',
 }
 
 const PlasmoInline = () => {
@@ -53,9 +53,7 @@ const PlasmoInline = () => {
   })
   return (
     <div style={{ width: '100%' }}>
-      {config !== undefined && (
-        <p style={styles}>{`${config ? 'Ctrl + ' : ''}Enter で送信`}</p>
-      )}
+      {config !== undefined && <p style={styles}>{`${config ? 'Ctrl + ' : ''}Enter で送信`}</p>}
       <div />
     </div>
   )

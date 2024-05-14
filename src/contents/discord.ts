@@ -4,7 +4,7 @@ import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://discord.com/*'],
-  all_frames: true
+  all_frames: true,
 }
 
 const handleKeyEvent = (e: KeyboardEvent) => {

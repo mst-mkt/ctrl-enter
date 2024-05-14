@@ -1,23 +1,15 @@
-import type {
-  PlasmoCSConfig,
-  PlasmoCSUIAnchor,
-  PlasmoGetInlineAnchor
-} from 'plasmo'
+import type { PlasmoCSConfig, PlasmoGetInlineAnchor } from 'plasmo'
 import type { CSSProperties } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getConfig, getSetting } from 'src/utils/config'
 
 export const config: PlasmoCSConfig = {
-  matches: [
-    'https://twitter.com/*',
-    'https://mobile.twitter.com/*',
-    'https://x.com/*'
-  ]
+  matches: ['https://twitter.com/*', 'https://mobile.twitter.com/*', 'https://x.com/*'],
 }
 
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
   const textbox = document.querySelector<HTMLElement>(
-    "aside > [role='progressbar'] + div:has([data-testid='dmComposerTextInput'])"
+    "aside > [role='progressbar'] + div:has([data-testid='dmComposerTextInput'])",
   ) as Element
   return textbox
 }
@@ -30,7 +22,7 @@ const styles: CSSProperties = {
   fontWeight: 'bold',
   color: '#9999',
   fontSize: '0.7rem',
-  width: 'calc(100% - 24px)'
+  width: 'calc(100% - 24px)',
 }
 
 const PlasmoInline = () => {
@@ -61,9 +53,7 @@ const PlasmoInline = () => {
   })
   return (
     <div style={{ width: '100%' }}>
-      {config !== undefined && (
-        <p style={styles}>{`${config ? 'Ctrl + ' : ''}Enter で送信`}</p>
-      )}
+      {config !== undefined && <p style={styles}>{`${config ? 'Ctrl + ' : ''}Enter で送信`}</p>}
       <div />
     </div>
   )

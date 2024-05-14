@@ -3,21 +3,17 @@ import { getConfig } from 'src/utils/config'
 import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
-  matches: [
-    'https://twitter.com/*',
-    'https://mobile.twitter.com/*',
-    'https://x.com/*'
-  ],
-  all_frames: true
+  matches: ['https://twitter.com/*', 'https://mobile.twitter.com/*', 'https://x.com/*'],
+  all_frames: true,
 }
 
 const sendButton = (elm: HTMLElement) => {
   const isMessage = elm.getAttribute('data-testid') === 'dmComposerTextInput'
 
   if (isMessage) {
-    const button = document.querySelector(
-      '[role="button"][data-testid="dmComposerSendButton"]'
-    ) as HTMLButtonElement | undefined
+    const button = document.querySelector('[role="button"][data-testid="dmComposerSendButton"]') as
+      | HTMLButtonElement
+      | undefined
 
     return button
   }
@@ -25,7 +21,7 @@ const sendButton = (elm: HTMLElement) => {
   return undefined
 }
 
-const handleKeyEventInDM = (e: KeyboardEvent) => {
+const handleKeyEventInDm = (e: KeyboardEvent) => {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.target?.dispatchEvent(
       new KeyboardEvent('keydown', {
@@ -36,8 +32,8 @@ const handleKeyEventInDM = (e: KeyboardEvent) => {
         bubbles: true,
         shiftKey: true,
         composed: true,
-        view: window
-      })
+        view: window,
+      }),
     )
     e.preventDefault()
     e.stopPropagation()
@@ -49,8 +45,8 @@ const handleKeyEventInDM = (e: KeyboardEvent) => {
 }
 
 const isInDMpPage = () => {
-  const pageURL = location.href
-  return pageURL.includes('message')
+  const pageUrl = location.href
+  return pageUrl.includes('message')
 }
 
 const messageElem = (): HTMLElement | null => {
@@ -61,14 +57,14 @@ const messageElem = (): HTMLElement | null => {
   }
 }
 
-const handleAddDMEvent = () => {
+const handleAddDmEvent = () => {
   const elem = messageElem()
   if (elem !== null && elem.onkeydown === null) {
-    elem.onkeydown = handleKeyEventInDM
+    elem.onkeydown = handleKeyEventInDm
   }
 }
 
-const handleRemoveDMEvent = () => {
+const handleRemoveDmEvent = () => {
   const elem = messageElem()
   if (elem !== null) {
     elem.onkeydown = null
@@ -76,11 +72,11 @@ const handleRemoveDMEvent = () => {
 }
 
 window.addEventListener('keydown', async () => {
-  handleRemoveDMEvent()
+  handleRemoveDmEvent()
   const config = await getConfig()
   const twitterConfig = config.twitter
   if (twitterConfig) {
-    handleAddDMEvent()
+    handleAddDmEvent()
   }
 })
 
@@ -88,8 +84,8 @@ chrome.storage.onChanged.addListener(async () => {
   const config = await getConfig()
   const twitterConfig = config.twitter
   if (twitterConfig) {
-    handleAddDMEvent()
+    handleAddDmEvent()
   } else {
-    handleRemoveDMEvent()
+    handleRemoveDmEvent()
   }
 })

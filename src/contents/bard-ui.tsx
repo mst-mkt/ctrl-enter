@@ -1,15 +1,15 @@
 import type { PlasmoCSConfig, PlasmoGetInlineAnchor } from 'plasmo'
 import type { CSSProperties } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getConfig, getSetting } from 'src/utils/config'
 
 export const config: PlasmoCSConfig = {
-  matches: ['https://bard.google.com/*']
+  matches: ['https://bard.google.com/*'],
 }
 
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
   const textbox = document.querySelector<HTMLElement>(
-    '.input-area:has(> .send-button-container)'
+    '.input-area:has(> .send-button-container)',
   ) as Element
   return textbox
 }
@@ -24,7 +24,7 @@ const styles: CSSProperties = {
   fontWeight: 'bold',
   color: '#9999',
   fontSize: '0.7rem',
-  width: '100%'
+  width: '100%',
 }
 
 const PlasmoInline = async () => {

@@ -4,13 +4,11 @@ import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://meet.google.com/*'],
-  all_frames: true
+  all_frames: true,
 }
 
 const sendButton = (elm: HTMLElement) =>
-  elm.parentElement?.parentElement?.nextElementSibling?.getElementsByTagName(
-    'button'
-  )[0]
+  elm.parentElement?.parentElement?.nextElementSibling?.getElementsByTagName('button')[0]
 
 const handleKeyEvent = (e: KeyboardEvent) => {
   if (isTextArea(e)) {

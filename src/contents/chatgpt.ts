@@ -4,7 +4,7 @@ import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://chat.openai.com/*', 'https://chatgpt.com/*'],
-  all_frames: true
+  all_frames: true,
 }
 
 const sendButton = {
@@ -12,8 +12,7 @@ const sendButton = {
     elm.parentElement?.querySelector('[data-testid="send-button"]') as
       | HTMLButtonElement
       | undefined,
-  edit: (elm: HTMLElement) =>
-    elm.nextElementSibling?.getElementsByTagName('button')[0]
+  edit: (elm: HTMLElement) => elm.nextElementSibling?.getElementsByTagName('button')[0],
 }
 
 const handleKeyEvent = (e: KeyboardEvent) => {

@@ -10,23 +10,11 @@ import {
   IconBrandZoom,
   IconCamera,
   IconMessage,
-  IconSettings
+  IconSettings,
 } from '@tabler/icons-react'
-import {
-  useEffect,
-  useMemo,
-  useState,
-  type ChangeEvent,
-  type MouseEvent
-} from 'react'
+import { type ChangeEvent, type MouseEvent, useEffect, useMemo, useState } from 'react'
 import type { supportSitesList } from 'src/types/type'
-import {
-  getConfig,
-  getSetting,
-  saveConfig,
-  saveSetting,
-  supportSites
-} from 'src/utils/config'
+import { getConfig, getSetting, saveConfig, saveSetting, supportSites } from 'src/utils/config'
 
 import styles from './index.module.css'
 
@@ -56,9 +44,7 @@ export const IndexPopup = () => {
 
   const siteName = useMemo<supportSitesList | 'unknown'>(() => {
     const siteName = Object.keys(supportSites).find((key) => {
-      return supportSites[key as supportSitesList].some(
-        (item) => url?.includes(item)
-      )
+      return supportSites[key as supportSitesList].some((item) => url?.includes(item))
     }) as supportSitesList | undefined
 
     return siteName ?? 'unknown'
@@ -81,7 +67,7 @@ export const IndexPopup = () => {
     const nowConfig = await getConfig()
     const newConfig = {
       ...nowConfig,
-      [siteName]: e.target.checked
+      [siteName]: e.target.checked,
     }
 
     await saveConfig(newConfig)
@@ -125,13 +111,10 @@ export const IndexPopup = () => {
     zoom: <IconBrandZoom />,
     facebook: <IconBrandFacebook />,
     claude: <IconMessage />,
-    unknown: <IconBan />
+    unknown: <IconBan />,
   }
 
-  const changeSetting = async (
-    key: string,
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
+  const changeSetting = async (key: string, e: ChangeEvent<HTMLInputElement>) => {
     if (setting === undefined) return
     const newSetting = { ...setting, [key]: e.target.checked }
     setSetting(newSetting)
@@ -193,7 +176,8 @@ export const IndexPopup = () => {
           <a
             href="https://github.com/INIAD-developers/ctrl-enter/issues"
             className={styles.link}
-            onClick={openLink}>
+            onClick={openLink}
+          >
             GitHub
           </a>
         </p>

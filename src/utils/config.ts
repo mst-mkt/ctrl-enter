@@ -4,11 +4,7 @@ const storage: Storage = new Storage()
 
 export const supportSites = {
   discord: ['https://discord.com'],
-  twitter: [
-    'https://twitter.com',
-    'https://mobile.twitter.com',
-    'https://x.com'
-  ],
+  twitter: ['https://twitter.com', 'https://mobile.twitter.com', 'https://x.com'],
   instagram: ['https://www.instagram.com', 'https://instagram.com'],
   chatgpt: ['https://chat.openai.com'],
   bing: ['https://www.bing.com'],
@@ -16,7 +12,7 @@ export const supportSites = {
   meet: ['https://meet.google.com/*'],
   zoom: ['https://zoom.us/wc', 'https://pwa.zoom.us/wc'],
   facebook: ['https://www.facebook.com', 'https://facebook.com'],
-  claude: ['https://claude.ai']
+  claude: ['https://claude.ai'],
 } as const
 
 const defaultConfig: Record<keyof typeof supportSites, boolean> = {
@@ -29,7 +25,7 @@ const defaultConfig: Record<keyof typeof supportSites, boolean> = {
   meet: true,
   zoom: true,
   facebook: true,
-  claude: true
+  claude: true,
 } as const
 
 export const getConfig = async (): Promise<Record<string, boolean>> => {
@@ -46,7 +42,7 @@ export const saveConfig = async (config: Record<string, boolean>) => {
 }
 
 const defaultSetting = {
-  入力方法を表示する: true
+  入力方法を表示する: true,
 }
 
 export const getSetting = async () => {
