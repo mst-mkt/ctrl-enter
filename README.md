@@ -15,6 +15,7 @@
 - ChatGPT
 - Bing Chat
 - Bard
+- Claude
 
 ## 開発手順
 
