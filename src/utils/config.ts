@@ -6,7 +6,7 @@ export const supportSites = {
   discord: ['https://discord.com'],
   twitter: ['https://twitter.com', 'https://mobile.twitter.com', 'https://x.com'],
   instagram: ['https://www.instagram.com', 'https://instagram.com'],
-  chatgpt: ['https://chat.openai.com'],
+  chatgpt: ['https://chat.openai.com', 'https://chatgpt.com'],
   bing: ['https://www.bing.com'],
   bard: ['https://bard.google.com'],
   meet: ['https://meet.google.com/*'],

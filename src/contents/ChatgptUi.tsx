@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { getConfig, getSetting } from 'src/utils/config'
 
 export const config: PlasmoCSConfig = {
-  matches: ['https://chat.openai.com/*'],
+  matches: ['https://chat.openai.com/*', 'https://chatgpt.com/*'],
 }
 
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
