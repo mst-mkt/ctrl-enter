@@ -4,7 +4,8 @@ import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://discord.com/*'],
-  all_frames: true
+  // biome-ignore lint/style/useNamingConvention: it's a key specified in plasmo-config
+  all_frames: true,
 }
 
 const handleKeyEvent = (e: KeyboardEvent) => {

@@ -4,13 +4,14 @@ import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://www.facebook.com/*', 'https://facebook.com/*'],
-  all_frames: true
+  // biome-ignore lint/style/useNamingConvention: it's a key specified in plasmo-config
+  all_frames: true,
 }
 
 const sendButton = {
   message: (elm: HTMLElement) =>
-    elm.parentElement?.parentElement?.parentElement?.parentElement
-      ?.parentElement?.nextElementSibling?.firstChild as HTMLElement | undefined
+    elm.parentElement?.parentElement?.parentElement?.parentElement?.parentElement
+      ?.nextElementSibling?.firstChild as HTMLElement | undefined,
 }
 
 const handleKeyEvent = (e: KeyboardEvent) => {

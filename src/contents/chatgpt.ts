@@ -4,7 +4,8 @@ import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://chat.openai.com/*', 'https://chatgpt.com/*'],
-  all_frames: true
+  // biome-ignore lint/style/useNamingConvention: it's a key specified in plasmo-config
+  all_frames: true,
 }
 
 const sendButton = {
@@ -12,19 +13,17 @@ const sendButton = {
     elm.parentElement?.querySelector('[data-testid="send-button"]') as
       | HTMLButtonElement
       | undefined,
-  edit: (elm: HTMLElement) =>
-    elm.nextElementSibling?.getElementsByTagName('button')[0]
+  edit: (elm: HTMLElement) => elm.nextElementSibling?.getElementsByTagName('button')[0],
 }
 
 const handleKeyEvent = (e: KeyboardEvent) => {
-  if (isTextArea(e)) {
-    e.stopPropagation()
-    if (key(e) === 'ctrlEnter') {
-      const target = e.target as HTMLElement
-      const action = target.id === 'prompt-textarea' ? 'send' : 'edit'
-      const button = sendButton[action](e.target as HTMLElement)
-      button?.click()
-    }
+  if (!isTextArea(e)) return
+  e.stopPropagation()
+  if (key(e) === 'ctrlEnter') {
+    const target = e.target as HTMLElement
+    const action = target.id === 'prompt-textarea' ? 'send' : 'edit'
+    const button = sendButton[action](e.target as HTMLElement)
+    button?.click()
   }
 }
 

@@ -1,33 +1,31 @@
 import type { PlasmoCSConfig, PlasmoGetInlineAnchor } from 'plasmo'
 import type { CSSProperties } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getConfig, getSetting } from 'src/utils/config'
 
 export const config: PlasmoCSConfig = {
-  matches: ['https://bard.google.com/*']
+  matches: ['https://chat.openai.com/*'],
 }
 
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
   const textbox = document.querySelector<HTMLElement>(
-    '.input-area:has(> .send-button-container)'
+    'div:has(> div > #prompt-textarea)',
   ) as Element
   return textbox
 }
 
-export const getShadowHostId = () => 'ctrl-enter-bard'
+export const getShadowHostId = () => 'ctrl-enter-chatgpt'
 
 const styles: CSSProperties = {
   textAlign: 'right',
-  margin: '4px 0 0',
-  padding: '0 100px',
-  boxSizing: 'border-box',
+  margin: 0,
   fontWeight: 'bold',
-  color: '#9999',
+  color: '#aaa9',
   fontSize: '0.7rem',
-  width: '100%'
+  width: '100%',
 }
 
-const PlasmoInline = async () => {
+const PlasmoInline = () => {
   const [config, setConfig] = useState<boolean>()
   const [setting, setSetting] = useState(false)
 
@@ -38,7 +36,7 @@ const PlasmoInline = async () => {
 
   useEffect(() => {
     fetchConfig()
-  }, [])
+  }, [fetchConfig])
 
   const fetchSetting = async () => {
     const setting = await getSetting()
@@ -47,7 +45,7 @@ const PlasmoInline = async () => {
 
   useEffect(() => {
     fetchSetting()
-  }, [])
+  }, [fetchSetting])
 
   chrome.storage.onChanged.addListener(() => {
     fetchConfig()

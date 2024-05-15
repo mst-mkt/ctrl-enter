@@ -1,14 +1,15 @@
 {
   "eslint.run": "onSave",
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.fixAll.stylelint": "explicit"
-  },
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.referencesCodeLens.enabled": true,
   "files.eol": "\n",
   "editor.tabSize": 2,
-  "stylelint.validate": ["css"]
+
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  }
 }

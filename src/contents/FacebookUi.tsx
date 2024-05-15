@@ -1,20 +1,15 @@
-import { hasSubscribers } from 'diagnostics_channel'
 import type { PlasmoCSConfig, PlasmoGetInlineAnchor } from 'plasmo'
 import type { CSSProperties } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getConfig, getSetting } from 'src/utils/config'
 
 export const config: PlasmoCSConfig = {
-  matches: [
-    'https://www.facebook.com/*',
-    'https://m.facebook.com/*',
-    'https://facebook.com/*'
-  ]
+  matches: ['https://www.facebook.com/*', 'https://m.facebook.com/*', 'https://facebook.com/*'],
 }
 
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
   const textbox = document.querySelector<HTMLElement>(
-    'div:has(> span:first-child > [role="button"]):has(> div [role="textbox"]):has(> span:last-child > [role="button"])'
+    'div:has(> span:first-child > [role="button"]):has(> div [role="textbox"]):has(> span:last-child > [role="button"])',
   ) as Element
 
   return textbox
@@ -30,7 +25,7 @@ const styles: CSSProperties = {
   fontSize: '0.7rem',
   padding: '0 44px',
   boxSizing: 'border-box',
-  width: '100%'
+  width: '100%',
 }
 
 const PlasmoInline = () => {
@@ -44,7 +39,7 @@ const PlasmoInline = () => {
 
   useEffect(() => {
     fetchConfig()
-  }, [])
+  }, [fetchConfig])
 
   const fetchSetting = async () => {
     const setting = await getSetting()
@@ -53,7 +48,7 @@ const PlasmoInline = () => {
 
   useEffect(() => {
     fetchSetting()
-  }, [])
+  }, [fetchSetting])
 
   chrome.storage.onChanged.addListener(() => {
     fetchConfig()
@@ -61,9 +56,7 @@ const PlasmoInline = () => {
   })
   return (
     <div style={{ width: '100%' }}>
-      {config !== undefined && (
-        <p style={styles}>{`${config ? 'Ctrl + ' : ''}Enter で送信`}</p>
-      )}
+      {config !== undefined && <p style={styles}>{`${config ? 'Ctrl + ' : ''}Enter で送信`}</p>}
       <div />
     </div>
   )

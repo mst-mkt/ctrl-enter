@@ -1,48 +1,44 @@
 import type { PlasmoCSConfig, PlasmoGetInlineAnchor } from 'plasmo'
 import type { CSSProperties } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getConfig, getSetting } from 'src/utils/config'
 
 export const config: PlasmoCSConfig = {
-  matches: ['https://claude.ai/chat/*', 'https://claude.ai/chats']
+  matches: ['https://bard.google.com/*'],
 }
 
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
-  const currentUrl = window.location.href
-  if (currentUrl.includes('/chat/')) {
-    const textbox = document.querySelector<HTMLElement>(
-      'fieldset > [class^="flex flex-col flex-1"] > [class^="flex items-center -ml-1.5 sm:-mt-1.5"]'
-    ) as Element
-    return textbox
-  } else {
-    const textbox = document.querySelector<HTMLElement>('fieldset') as Element
-    return textbox
-  }
+  const textbox = document.querySelector<HTMLElement>(
+    '.input-area:has(> .send-button-container)',
+  ) as Element
+  return textbox
 }
 
-export const getShadowHostId = () => 'ctrl-enter-claude'
+export const getShadowHostId = () => 'ctrl-enter-bard'
 
 const styles: CSSProperties = {
   textAlign: 'right',
-  margin: '4px 12px 4px',
+  margin: '4px 0 0',
+  padding: '0 100px',
+  boxSizing: 'border-box',
   fontWeight: 'bold',
   color: '#9999',
   fontSize: '0.7rem',
-  width: 'calc(100% - 24px)'
+  width: '100%',
 }
 
-const PlasmoInline = () => {
+const PlasmoInline = async () => {
   const [config, setConfig] = useState<boolean>()
   const [setting, setSetting] = useState(false)
 
   const fetchConfig = async () => {
     const config = await getConfig()
-    setConfig(config.claude)
+    setConfig(config.chatgpt)
   }
 
   useEffect(() => {
     fetchConfig()
-  }, [])
+  }, [fetchConfig])
 
   const fetchSetting = async () => {
     const setting = await getSetting()
@@ -51,12 +47,13 @@ const PlasmoInline = () => {
 
   useEffect(() => {
     fetchSetting()
-  }, [])
+  }, [fetchSetting])
 
   chrome.storage.onChanged.addListener(() => {
     fetchConfig()
     fetchSetting()
   })
+
   return (
     <div style={{ width: '100%' }}>
       {config !== undefined && setting && (

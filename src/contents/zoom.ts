@@ -4,13 +4,12 @@ import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://zoo.us/wc/*', 'https://*.zoom.us/wc/*'],
-  all_frames: true
+  // biome-ignore lint/style/useNamingConvention: it's a key specified in plasmo-config
+  all_frames: true,
 }
 
 const sendButton = (elm: HTMLElement) =>
-  elm.parentElement?.parentElement?.nextElementSibling?.getElementsByTagName(
-    'button'
-  )[0]
+  elm.parentElement?.parentElement?.nextElementSibling?.getElementsByTagName('button')[0]
 
 const isTextArea = (e: KeyboardEvent) => {
   const target = e.target as HTMLElement
@@ -24,7 +23,7 @@ const handleKeyEvent = (e: KeyboardEvent) => {
         code: 'Enter',
         key: 'Enter',
         keyCode: 13,
-        shiftKey: true
+        shiftKey: true,
       })
       e.target?.dispatchEvent(keyEvent)
       e.preventDefault()

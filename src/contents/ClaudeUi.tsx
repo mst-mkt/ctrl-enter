@@ -1,30 +1,33 @@
 import type { PlasmoCSConfig, PlasmoGetInlineAnchor } from 'plasmo'
 import type { CSSProperties } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getConfig, getSetting } from 'src/utils/config'
 
 export const config: PlasmoCSConfig = {
-  matches: ['https://meet.google.com/*']
+  matches: ['https://claude.ai/chat/*', 'https://claude.ai/chats'],
 }
 
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
-  const textbox = document.querySelector<HTMLElement>(
-    'div:has(> div > span > button[role="button"]):has(> div > div > label > span + textarea)'
-  ) as Element
+  const currentUrl = window.location.href
+  if (currentUrl.includes('/chat/')) {
+    const textbox = document.querySelector<HTMLElement>(
+      'fieldset > [class^="flex flex-col flex-1"] > [class^="flex items-center -ml-1.5 sm:-mt-1.5"]',
+    ) as Element
+    return textbox
+  }
+  const textbox = document.querySelector<HTMLElement>('fieldset') as Element
   return textbox
 }
 
-export const getShadowHostId = () => 'ctrl-enter-meet'
+export const getShadowHostId = () => 'ctrl-enter-claude'
 
 const styles: CSSProperties = {
   textAlign: 'right',
-  margin: '-12px 0 8px',
+  margin: '4px 12px 4px',
   fontWeight: 'bold',
   color: '#9999',
   fontSize: '0.7rem',
-  padding: '0 15px',
-  boxSizing: 'border-box',
-  width: '100%'
+  width: 'calc(100% - 24px)',
 }
 
 const PlasmoInline = () => {
@@ -33,12 +36,12 @@ const PlasmoInline = () => {
 
   const fetchConfig = async () => {
     const config = await getConfig()
-    setConfig(config.meet)
+    setConfig(config.claude)
   }
 
   useEffect(() => {
     fetchConfig()
-  }, [])
+  }, [fetchConfig])
 
   const fetchSetting = async () => {
     const setting = await getSetting()
@@ -47,7 +50,7 @@ const PlasmoInline = () => {
 
   useEffect(() => {
     fetchSetting()
-  }, [])
+  }, [fetchSetting])
 
   chrome.storage.onChanged.addListener(() => {
     fetchConfig()
@@ -55,7 +58,7 @@ const PlasmoInline = () => {
   })
   return (
     <div style={{ width: '100%' }}>
-      {config !== undefined && (
+      {config !== undefined && setting && (
         <p style={styles}>{`${config ? 'Ctrl + ' : ''}Enter で送信`}</p>
       )}
       <div />
