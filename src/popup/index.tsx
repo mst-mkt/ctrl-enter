@@ -13,7 +13,7 @@ import {
   IconSettings,
 } from '@tabler/icons-react'
 import { type ChangeEvent, type MouseEvent, useEffect, useMemo, useState } from 'react'
-import type { supportSitesList } from 'src/types/type'
+import type { SupportSitesList } from 'src/types/type'
 import { getConfig, getSetting, saveConfig, saveSetting, supportSites } from 'src/utils/config'
 
 import styles from './index.module.css'
@@ -32,7 +32,7 @@ export const IndexPopup = () => {
 
   useEffect(() => {
     fetchSetting()
-  }, [])
+  }, [fetchSetting])
 
   chrome.storage.onChanged.addListener(() => {
     fetchSetting()
@@ -42,13 +42,13 @@ export const IndexPopup = () => {
     chrome.runtime.openOptionsPage()
   }
 
-  const siteName = useMemo<supportSitesList | 'unknown'>(() => {
+  const siteName = useMemo<SupportSitesList | 'unknown'>(() => {
     const siteName = Object.keys(supportSites).find((key) => {
-      return supportSites[key as supportSitesList].some((item) => url?.includes(item))
-    }) as supportSitesList | undefined
+      return supportSites[key as SupportSitesList].some((item) => url?.includes(item))
+    }) as SupportSitesList | undefined
 
     return siteName ?? 'unknown'
-  }, [url, supportSites])
+  }, [url])
 
   const status = useMemo(() => {
     const isSupported = Object.values(supportSites).some((value) => {
@@ -129,7 +129,7 @@ export const IndexPopup = () => {
     <div className={styles.container}>
       <header className={styles.header}>
         <h1 className={styles.title}>ctrl + Enter</h1>
-        <div className={styles.icon} onClick={openSettings}>
+        <div className={styles.icon} onClick={openSettings} onKeyDown={openSettings}>
           <IconSettings />
         </div>
       </header>

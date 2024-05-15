@@ -4,6 +4,7 @@ import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://twitter.com/*', 'https://mobile.twitter.com/*', 'https://x.com/*'],
+  // biome-ignore lint/style/useNamingConvention: it's a key specified in plasmo-config
   all_frames: true,
 }
 
@@ -44,17 +45,16 @@ const handleKeyEventInDm = (e: KeyboardEvent) => {
   }
 }
 
-const isInDMpPage = () => {
+const isInDirectMessagePage = () => {
   const pageUrl = location.href
   return pageUrl.includes('message')
 }
 
 const messageElem = (): HTMLElement | null => {
-  if (isInDMpPage()) {
+  if (isInDirectMessagePage()) {
     return document.querySelector('main')
-  } else {
-    return document.querySelector('[data-testid~="DMDrawer"]')
   }
+  return document.querySelector('[data-testid~="DMDrawer"]')
 }
 
 const handleAddDmEvent = () => {

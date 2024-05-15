@@ -4,6 +4,7 @@ import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://www.bing.com/*'],
+  // biome-ignore lint/style/useNamingConvention: it's a key specified in plasmo-config
   all_frames: true,
 }
 

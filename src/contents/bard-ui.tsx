@@ -38,7 +38,7 @@ const PlasmoInline = async () => {
 
   useEffect(() => {
     fetchConfig()
-  }, [])
+  }, [fetchConfig])
 
   const fetchSetting = async () => {
     const setting = await getSetting()
@@ -47,12 +47,13 @@ const PlasmoInline = async () => {
 
   useEffect(() => {
     fetchSetting()
-  }, [])
+  }, [fetchSetting])
 
   chrome.storage.onChanged.addListener(() => {
     fetchConfig()
     fetchSetting()
   })
+
   return (
     <div style={{ width: '100%' }}>
       {config !== undefined && setting && (

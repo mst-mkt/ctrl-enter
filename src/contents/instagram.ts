@@ -4,6 +4,7 @@ import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://www.instagram.com/*', 'https://instagram.com/*'],
+  // biome-ignore lint/style/useNamingConvention: it's a key specified in plasmo-config
   all_frames: true,
 }
 

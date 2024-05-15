@@ -4,6 +4,7 @@ import { key } from 'src/utils/key'
 
 export const config: PlasmoCSConfig = {
   matches: ['https://claude.ai/chat/*', 'https://claude.ai/chats'],
+  // biome-ignore lint/style/useNamingConvention: it's a key specified in plasmo-config
   all_frames: true,
 }
 
@@ -24,17 +25,16 @@ const sendButton = {
 }
 
 const handleKeyEvent = (e: KeyboardEvent) => {
-  if (isTextArea(e)) {
-    e.stopPropagation()
-    if (key(e) === 'ctrlEnter') {
-      const target = e.target as HTMLElement
+  if (!isTextArea(e)) return
+  e.stopPropagation()
+  if (key(e) === 'ctrlEnter') {
+    const target = e.target as HTMLElement
 
-      const currentUrl = window.location.href
-      const action = currentUrl.includes('/chat/') ? 'send' : 'startChat'
+    const currentUrl = window.location.href
+    const action = currentUrl.includes('/chat/') ? 'send' : 'startChat'
 
-      const button = sendButton[action](target)
-      button?.click()
-    }
+    const button = sendButton[action](target)
+    button?.click()
   }
 }
 

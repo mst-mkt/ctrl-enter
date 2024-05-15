@@ -14,10 +14,9 @@ export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
       'fieldset > [class^="flex flex-col flex-1"] > [class^="flex items-center -ml-1.5 sm:-mt-1.5"]',
     ) as Element
     return textbox
-  } else {
-    const textbox = document.querySelector<HTMLElement>('fieldset') as Element
-    return textbox
   }
+  const textbox = document.querySelector<HTMLElement>('fieldset') as Element
+  return textbox
 }
 
 export const getShadowHostId = () => 'ctrl-enter-claude'
@@ -42,7 +41,7 @@ const PlasmoInline = () => {
 
   useEffect(() => {
     fetchConfig()
-  }, [])
+  }, [fetchConfig])
 
   const fetchSetting = async () => {
     const setting = await getSetting()
@@ -51,7 +50,7 @@ const PlasmoInline = () => {
 
   useEffect(() => {
     fetchSetting()
-  }, [])
+  }, [fetchSetting])
 
   chrome.storage.onChanged.addListener(() => {
     fetchConfig()
