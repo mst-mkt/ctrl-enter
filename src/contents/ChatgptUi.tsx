@@ -8,10 +8,9 @@ export const config: PlasmoCSConfig = {
 }
 
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
-  const textbox = document.querySelector<HTMLElement>(
-    'div:has(> div > #prompt-textarea)',
-  ) as Element
-  return textbox
+  const textbox = document.querySelector<HTMLElement>('textarea') as Element
+  const parents = textbox.closest("[class^='flex w-full items-center']")
+  return parents as Element
 }
 
 export const getShadowHostId = () => 'ctrl-enter-chatgpt'
@@ -53,9 +52,7 @@ const PlasmoInline = () => {
   })
   return (
     <div style={{ width: '100%' }}>
-      {config !== undefined && setting && (
-        <p style={styles}>{`${config ? 'Ctrl + ' : ''}Enter で送信`}</p>
-      )}
+      {config !== undefined && config && setting && <p style={styles}>{'Ctrl + Enter で送信'}</p>}
       <div />
     </div>
   )
