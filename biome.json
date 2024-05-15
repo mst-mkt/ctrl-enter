@@ -86,7 +86,8 @@
       "indentWidth": 2,
       "lineWidth": 100,
       "quoteProperties": "asNeeded"
-    }
+    },
+    "globals": ["chrome"]
   },
   "vcs": {
     "enabled": true,
