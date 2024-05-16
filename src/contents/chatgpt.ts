@@ -10,9 +10,7 @@ export const config: PlasmoCSConfig = {
 
 const sendButton = {
   send: (elm: HTMLElement) =>
-    elm.parentElement?.querySelector('[data-testid="send-button"]') as
-      | HTMLButtonElement
-      | undefined,
+    elm.parentElement?.nextElementSibling as HTMLButtonElement | undefined,
   edit: (elm: HTMLElement) => elm.nextElementSibling?.getElementsByTagName('button')[0],
 }
 
