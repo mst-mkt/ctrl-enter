@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@plasmohq/storage": "^1.9.3",
-    "@tabler/icons-react": "^3.4.0",
+    "@tabler/icons-react": "^3.5.0",
     "hook": "link:@plasmohq/storage/hook",
     "plasmo": "0.86.3",
     "react": "18.3.1",
