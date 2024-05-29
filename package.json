@@ -29,7 +29,7 @@
     "@biomejs/biome": "^1.7.3",
     "@types/chrome": "0.0.243",
     "@types/node": "20.12.12",
-    "@types/react": "18.3.2",
+    "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "happy-css-modules": "^2.1.2",
     "less": "^4.2.0",
