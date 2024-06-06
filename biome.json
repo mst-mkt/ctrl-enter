@@ -1,10 +1,11 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.7.3/schema.json",
+  "$schema": "https://biomejs.dev/schemas/1.8.0/schema.json",
   "organizeImports": {
     "enabled": true
   },
   "linter": {
     "enabled": true,
+    "ignore": ["./src/**/*.d.ts", "./src/**/*.gen.ts"],
     "rules": {
       "recommended": true,
       "complexity": {
@@ -79,15 +80,14 @@
       "enabled": true,
       "quoteStyle": "single",
       "jsxQuoteStyle": "double",
-      "trailingComma": "all",
+      "trailingCommas": "all",
       "semicolons": "asNeeded",
       "arrowParentheses": "always",
       "indentStyle": "space",
       "indentWidth": 2,
       "lineWidth": 100,
       "quoteProperties": "asNeeded"
-    },
-    "globals": ["chrome"]
+    }
   },
   "vcs": {
     "enabled": true,
