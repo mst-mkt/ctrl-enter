@@ -14,12 +14,14 @@ jobs:
       - name: setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version-file: '.node-version'
+          node-version-file: ".node-version"
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
           node-version: 18
-      - run: pnpm i --frozen-lockfile
-      - run: pnpm run lint
-      - run: pnpm run typecheck
-      - name: plasmo Test
+      - run: pnpm i
+      - name: Lint and Format
+        run: pnpm check
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Test
         run: pnpm run test
