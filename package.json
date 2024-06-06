@@ -34,9 +34,11 @@
     "happy-css-modules": "^3.0.1",
     "less": "^4.2.0",
     "notios": "^0.4.1",
-    "postcss": "^8.4.38",
     "sass": "^1.77.4",
-    "typescript": "5.4.5"
+    "typescript": "5.4.5",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3"
   },
   "manifest": {
     "host_permissions": [
