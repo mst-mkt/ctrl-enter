@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import '~/style.css'
 
 const Popup: FC = () => {
   return (
