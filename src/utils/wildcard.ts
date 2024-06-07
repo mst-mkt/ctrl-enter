@@ -10,6 +10,6 @@ export const getServiceFromUrl = (url: string): Services | null => {
   const entries = Object.entries(SERVICE_URLS) as [Services, (typeof SERVICE_URLS)[Services]][]
   const service = entries.find(([_, wildcards]) =>
     wildcards.map(wildcardToRegExp).some((regex) => regex.test(url)),
-  )[0]
+  )?.[0]
   return service || null
 }
