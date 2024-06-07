@@ -10,5 +10,7 @@
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
-  }
+  },
+
+  "cSpell.ignoreWords": ["plasmo", "openai", "tabler"]
 }
