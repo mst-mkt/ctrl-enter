@@ -1,6 +1,8 @@
 import type { PlasmoCSConfig } from 'plasmo'
 import { WILDCARDS } from './constants/services'
+import { send } from './features/send'
 import { getEventKey } from './utils/getEventKey'
+import { getTriggeredElement } from './utils/triggeredElements'
 import { getServiceFromUrl } from './utils/wildcard'
 
 export const config: PlasmoCSConfig = {
@@ -10,13 +12,24 @@ export const config: PlasmoCSConfig = {
 }
 ;(() => {
   const service = getServiceFromUrl(location.href)
-  const handleKeyDown = (e: KeyboardEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    e.stopImmediatePropagation()
-    const key = getEventKey(e)
+  const textAreas = getTriggeredElement(service)
 
-    // console.log('service:', service ?? 'null', 'key:', key, new Date().toISOString())
+  for (const textArea of textAreas) {
+    textArea.onkeydown = (e) => {
+      const key = getEventKey(e)
+      if (key === 'enter') {
+        e.preventDefault()
+        e.stopPropagation()
+        e.stopImmediatePropagation()
+      }
+
+      if (key === 'ctrl-enter') {
+        e.preventDefault()
+        e.stopPropagation()
+        e.stopImmediatePropagation()
+
+        send[service](e)
+      }
+    }
   }
-  document.addEventListener('keydown', handleKeyDown)
 })()
