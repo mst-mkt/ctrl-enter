@@ -2,7 +2,6 @@ import type { PlasmoCSConfig } from 'plasmo'
 import { WILDCARDS } from './constants/services'
 import { getTriggeredTextBoxes } from './features/getTextBoxes'
 import { sendController } from './features/sendControl'
-import type { Services } from './types/serviceType'
 import { getServiceFromUrl } from './utils/wildcard'
 
 export const config: PlasmoCSConfig = {
@@ -10,18 +9,18 @@ export const config: PlasmoCSConfig = {
   // biome-ignore lint/style/useNamingConvention: `all_frames` is provided by the external library (Plasmo)
   all_frames: true,
 }
-
-let textAreas: HTMLElement[] = []
-const handleKeydown = (e: KeyboardEvent, service: Services) => sendController[service](e)
 ;(() => {
-  const service = getServiceFromUrl(location.href)
+  let textAreas: HTMLElement[] = []
+  const serviceName = getServiceFromUrl(location.href)
+
+  const handleKeydown = (e: KeyboardEvent) => sendController[serviceName](e)
   const updateTextAreas = () => {
     for (const textArea of textAreas) {
-      textArea.removeEventListener('keydown', (e) => handleKeydown(e, service))
+      textArea.removeEventListener('keydown', handleKeydown)
     }
-    textAreas = getTriggeredTextBoxes(service)
+    textAreas = getTriggeredTextBoxes(serviceName)
     for (const textArea of textAreas) {
-      textArea.addEventListener('keydown', (e) => handleKeydown(e, service), { capture: true })
+      textArea.addEventListener('keydown', handleKeydown, { capture: true })
     }
   }
 
