@@ -29,4 +29,8 @@ export const sendController: SendActions = {
       sendButton.click()
     }
   },
+  instagram: (e) => {
+    const key = getEventKey(e)
+    if (key === 'enter') e.stopPropagation()
+  },
 }

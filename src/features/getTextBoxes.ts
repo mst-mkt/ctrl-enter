@@ -15,4 +15,5 @@ export const getTriggeredTextBoxes = (service: Services): HTMLElement[] =>
         '.DraftEditor-root > .DraftEditor-editorContainer > div[role="textbox"]',
       ),
     )
+    .with('instagram', () => querySelectorArray<HTMLDivElement>('div[role="textbox"]'))
     .otherwise(() => [])
