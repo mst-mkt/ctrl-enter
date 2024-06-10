@@ -2,7 +2,7 @@ import { SERVICE_URLS } from '~/constants/services'
 import type { Services, Wildcards } from '~/types/serviceType'
 
 export const wildcardToRegExp = (wildcard: Wildcards): RegExp => {
-  const regex = wildcard.replace(/\*/g, '[a-zA-Z0-9-]*')
+  const regex = wildcard.replace(/\*/g, '[a-zA-Z0-9-/]*')
   return new RegExp(`^${regex}$`)
 }
 
