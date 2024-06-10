@@ -1,7 +1,7 @@
 import type { PlasmoCSConfig } from 'plasmo'
 import { WILDCARDS } from './constants/services'
 import { send } from './features/send'
-import { getEventKey } from './utils/getEventKey'
+import type { Services } from './types/serviceType'
 import { getTriggeredElement } from './utils/triggeredElements'
 import { getServiceFromUrl } from './utils/wildcard'
 
@@ -10,26 +10,21 @@ export const config: PlasmoCSConfig = {
   // biome-ignore lint/style/useNamingConvention: `all_frames` is provided by the external library (Plasmo)
   all_frames: true,
 }
+
+let textAreas: HTMLElement[] = []
+const handleKeydown = (e: KeyboardEvent, service: Services) => send[service](e)
 ;(() => {
   const service = getServiceFromUrl(location.href)
-  const textAreas = getTriggeredElement(service)
-
-  for (const textArea of textAreas) {
-    textArea.onkeydown = (e) => {
-      const key = getEventKey(e)
-      if (key === 'enter') {
-        e.preventDefault()
-        e.stopPropagation()
-        e.stopImmediatePropagation()
-      }
-
-      if (key === 'ctrl-enter') {
-        e.preventDefault()
-        e.stopPropagation()
-        e.stopImmediatePropagation()
-
-        send[service](e)
-      }
+  const updateTextAreas = () => {
+    for (const textArea of textAreas) {
+      textArea.removeEventListener('keydown', (e) => handleKeydown(e, service))
+    }
+    textAreas = getTriggeredElement(service)
+    for (const textArea of textAreas) {
+      textArea.addEventListener('keydown', (e) => handleKeydown(e, service), { capture: true })
     }
   }
+
+  new MutationObserver(updateTextAreas).observe(document.body, { childList: true, subtree: true })
+  updateTextAreas()
 })()
