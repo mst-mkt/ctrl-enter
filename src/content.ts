@@ -1,8 +1,8 @@
 import type { PlasmoCSConfig } from 'plasmo'
 import { WILDCARDS } from './constants/services'
+import { getTriggeredTextBoxes } from './features/getTextBoxes'
 import { sendController } from './features/sendControl'
 import type { Services } from './types/serviceType'
-import { getTriggeredElement } from './utils/triggeredElements'
 import { getServiceFromUrl } from './utils/wildcard'
 
 export const config: PlasmoCSConfig = {
@@ -19,7 +19,7 @@ const handleKeydown = (e: KeyboardEvent, service: Services) => sendController[se
     for (const textArea of textAreas) {
       textArea.removeEventListener('keydown', (e) => handleKeydown(e, service))
     }
-    textAreas = getTriggeredElement(service)
+    textAreas = getTriggeredTextBoxes(service)
     for (const textArea of textAreas) {
       textArea.addEventListener('keydown', (e) => handleKeydown(e, service), { capture: true })
     }
