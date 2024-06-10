@@ -1,7 +1,7 @@
 import type { PlasmoCSConfig } from 'plasmo'
 import { WILDCARDS } from './constants/services'
-import { getTriggeredTextBoxes } from './features/getTextBoxes'
-import { sendController } from './features/sendControl'
+import { getTriggeredTextBoxes } from './core/getTextBoxes'
+import { sendController } from './core/sendControl'
 import { getServiceFromUrl } from './utils/wildcard'
 
 export const config: PlasmoCSConfig = {
