@@ -12,6 +12,7 @@ export const sendController: SendActions = {
   twitter: (e) => {
     const key = getEventKey(e)
     if (key === 'enter') {
+      // dispatch shift-enter because the cursor shifts when enter is used
       const shiftEnterEvent = createKeydownEvent({ keyCode: 13, shiftKey: true, bubbles: true })
       e.currentTarget?.dispatchEvent(shiftEnterEvent)
 
