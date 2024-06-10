@@ -1,6 +1,6 @@
 import type { PlasmoCSConfig } from 'plasmo'
 import { WILDCARDS } from './constants/services'
-import { send } from './features/send'
+import { sendController } from './features/sendControl'
 import type { Services } from './types/serviceType'
 import { getTriggeredElement } from './utils/triggeredElements'
 import { getServiceFromUrl } from './utils/wildcard'
@@ -12,7 +12,7 @@ export const config: PlasmoCSConfig = {
 }
 
 let textAreas: HTMLElement[] = []
-const handleKeydown = (e: KeyboardEvent, service: Services) => send[service](e)
+const handleKeydown = (e: KeyboardEvent, service: Services) => sendController[service](e)
 ;(() => {
   const service = getServiceFromUrl(location.href)
   const updateTextAreas = () => {

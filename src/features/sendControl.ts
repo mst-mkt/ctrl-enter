@@ -3,7 +3,7 @@ import { getEventKey } from '~/utils/getEventKey'
 
 type SendActions = Record<Services, (e: KeyboardEvent) => void>
 
-export const send: SendActions = {
+export const sendController: SendActions = {
   discord: (e) => {
     const key = getEventKey(e)
     if (key === 'enter') e.stopPropagation()
