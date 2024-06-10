@@ -33,4 +33,12 @@ export const sendController: SendActions = {
     const key = getEventKey(e)
     if (key === 'enter') e.stopPropagation()
   },
+  chatgpt: (e) => {
+    const key = getEventKey(e)
+    if (key === 'enter') e.stopPropagation()
+
+    const textBox = e.currentTarget as HTMLTextAreaElement
+    const sendButton = textBox.parentElement?.parentElement?.lastElementChild as HTMLButtonElement
+    if (key === 'ctrl-enter') sendButton?.click()
+  },
 }
