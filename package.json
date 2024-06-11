@@ -1,42 +1,42 @@
 {
   "name": "ctrl-enter",
-  "displayName": "ctrl-Enter",
-  "version": "0.0.3",
+  "displayName": "ctrl-enter",
+  "version": "0.1.0",
   "description": "'Enter'で送信するWebサイトを'Ctrl + Enter'に矯正するブラウザ拡張機能",
-  "author": "INIAD.ts",
+  "author": "mst-mkt",
   "scripts": {
-    "notios": "notios dev",
-    "dev": "run-p dev:*",
-    "dev:plasmo": "plasmo dev",
-    "dev:hcm": "hcm '**/*.module.css' -w --ignore-path .gitignore",
+    "dev": "plasmo dev",
     "build": "plasmo build",
     "package": "plasmo package",
-    "lint": "biome check ./src/",
-    "lint:fix": "npm run lint -- --apply",
+    "check": "biome check ./src/",
+    "fix": "biome check --write ./src/",
     "test": "plasmo test",
-    "hcm": "hcm '**/*.module.css'",
-    "typecheck": "pnpm hcm && tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepare": "husky"
   },
   "dependencies": {
     "@plasmohq/storage": "^1.10.0",
     "@tabler/icons-react": "^3.5.0",
-    "hook": "link:@plasmohq/storage/hook",
-    "plasmo": "0.86.3",
+    "plasmo": "0.87.1",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "ts-pattern": "^5.1.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.7.3",
+    "@biomejs/biome": "^1.8.1",
     "@types/chrome": "0.0.268",
-    "@types/node": "20.14.0",
+    "@types/node": "20.14.2",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
-    "happy-css-modules": "^3.0.1",
-    "less": "^4.2.0",
-    "notios": "^0.4.1",
+    "autoprefixer": "^10.4.19",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.5",
     "postcss": "^8.4.38",
-    "sass": "^1.77.4",
+    "tailwindcss": "^3.4.4",
     "typescript": "5.4.5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "biome check --write ./src/"
   },
   "manifest": {
     "host_permissions": [
