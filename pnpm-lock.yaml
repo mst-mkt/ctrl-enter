@@ -9,8 +9,8 @@ dependencies:
     specifier: ^1.10.0
     version: 1.10.0(react@18.3.1)
   '@tabler/icons-react':
-    specifier: ^3.5.0
-    version: 3.5.0(react@18.3.1)
+    specifier: ^3.6.0
+    version: 3.6.0(react@18.3.1)
   plasmo:
     specifier: 0.87.1
     version: 0.87.1(postcss@8.4.38)(react-dom@18.3.1)(react@18.3.1)
@@ -2741,17 +2741,17 @@ packages:
       defer-to-connect: 2.0.1
     dev: false
 
-  /@tabler/icons-react@3.5.0(react@18.3.1):
-    resolution: {integrity: sha512-bn05XKZV3ZfOv5Jr1FCTmVPOQGBVJoA4NefrnR919rqg6WGXAa08NovONHJGSuMxXUMV3b9Cni85diIW/E9yuw==}
+  /@tabler/icons-react@3.6.0(react@18.3.1):
+    resolution: {integrity: sha512-mkYGxlphNzvKq32teL+Z8wZW7I9zDftmNPX38UnZVCGjss2qbg0puqLhi1unfm5Y0CSefg+iAQrsjSL+DHx9YA==}
     peerDependencies:
       react: '>= 16'
     dependencies:
-      '@tabler/icons': 3.5.0
+      '@tabler/icons': 3.6.0
       react: 18.3.1
     dev: false
 
-  /@tabler/icons@3.5.0:
-    resolution: {integrity: sha512-I53dC3ZSHQ2MZFGvDYJelfXm91L2bTTixS4w5jTAulLhHbCZso5Bih4Rk/NYZxlngLQMKHvEYwZQ+6w/WluKiA==}
+  /@tabler/icons@3.6.0:
+    resolution: {integrity: sha512-Zv0Ofc64RCMpZ2F8CvsWAphrSjerx5hEErt/RMmE+W8r4E5l5Lizi+My9KbbZQ4NyAtrtrOX80OY1oROZrRzEA==}
     dev: false
 
   /@trysound/sax@0.2.0:
